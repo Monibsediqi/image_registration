@@ -3,13 +3,11 @@ A UNet based CT scan (Multiphase CT scan and lung CT) registration using Pytorch
 
 # Network 1 Architecture 
 <p align='center'>
-  <img src="https://user-images.githubusercontent.com/42628945/184533461-9663ea09-4de6-4826-95c0-efb834b9a273.jpg" width=1000)
+  <img src="https://user-images.githubusercontent.com/42628945/185793510-ed4360f9-77f7-4818-9f82-5596985bcb54.png" width=1000)
 </p>  
 
 # Network 2 Architecture 
-<p align='center'>
-  <img src="https://user-images.githubusercontent.com/42628945/184533461-9663ea09-4de6-4826-95c0-efb834b9a273.jpg" width=1000)
-</p>  
+
 
 ## Requirements
 - pytorch
@@ -20,17 +18,10 @@ A UNet based CT scan (Multiphase CT scan and lung CT) registration using Pytorch
 - pillow
 
 ## Visual results
-|MRI|CBCT | Synthetic CT | 
-|:---:|:---:|:---:|
-| ![IMG0070](https://user-images.githubusercontent.com/42628945/184530412-e2ffbd67-ebec-4ee3-8cd4-0194ba8cf8a3.jpg)|![Cleaned_0000070](https://user-images.githubusercontent.com/42628945/184530432-ba3aa975-0050-49b5-b722-1c722619675f.jpg)| ![Cleaned_0000067](https://user-images.githubusercontent.com/42628945/184530458-ddbe3798-d016-42b8-bd3f-7d0f9f38d718.jpg)|
-|![IMG0086](https://user-images.githubusercontent.com/42628945/184530674-40ea7848-7a36-4756-9224-d75d9589921d.jpg)|![Cleaned_0000086](https://user-images.githubusercontent.com/42628945/184530682-ad338522-82be-4236-8064-6f537fba057b.jpg)|![Cleaned_0000068](https://user-images.githubusercontent.com/42628945/184530687-f9632fc6-6c31-4fd5-bd47-20107dc459f7.jpg)|
-|![IMG0111](https://user-images.githubusercontent.com/42628945/184531047-b66547aa-3d79-42cb-850d-b59108e6b896.jpg)|![Cleaned_0000111](https://user-images.githubusercontent.com/42628945/184531059-59d32fb9-be44-4f2a-95ea-0d2bdcff76cb.jpg)|![Cleaned_00000111](https://user-images.githubusercontent.com/42628945/184531060-69239d86-0ba2-47fd-aedd-055559ba12d4.jpg)
-|![IMG0148](https://user-images.githubusercontent.com/42628945/184531127-447417dc-8e63-4447-8e94-04ece84877f6.jpg)|![Cleaned_0000148](https://user-images.githubusercontent.com/42628945/184531131-45b28bdf-93b1-47e0-a68c-c0a703b89266.jpg)|![Cleaned_0000148](https://user-images.githubusercontent.com/42628945/184531189-bfe068c1-acd0-4678-b168-9fb27e099db5.jpg)
-|![IMG0204](https://user-images.githubusercontent.com/42628945/184531297-9f3b3082-6738-4fd2-b030-1710425ac165.jpg)|![Cleaned_0000204](https://user-images.githubusercontent.com/42628945/184531302-e80d8ea4-5338-4788-8e3b-623c2d81e8b5.jpg)|![Cleaned_0000204](https://user-images.githubusercontent.com/42628945/184531368-e737a048-543c-47fb-8baa-ba15a76302f3.jpg)
-|![IMG0259](https://user-images.githubusercontent.com/42628945/184531486-91785a79-dd1b-4902-822b-0d417427264e.jpg)|![Cleaned_0000259](https://user-images.githubusercontent.com/42628945/184531488-c4e487b9-396f-4cb6-81c4-04a85681a876.jpg)|![Cleaned_0000259](https://user-images.githubusercontent.com/42628945/184531490-7e9238a8-c93f-4843-b8d8-f8e0eb4e8abc.jpg)
-|![IMG0289](https://user-images.githubusercontent.com/42628945/184531586-5bb5ef90-e002-42d7-a0b8-944122b6cc71.jpg)|![Cleaned_0000289](https://user-images.githubusercontent.com/42628945/184531597-6f12f248-7ce0-492e-bb1a-c6a9ca651790.jpg)|![Cleaned_0000289](https://user-images.githubusercontent.com/42628945/184531602-b636ecbe-81d1-4530-b3f4-a3958e797b78.jpg)
-|![IMG0320](https://user-images.githubusercontent.com/42628945/184532316-642b6179-8879-43d5-8a06-638ce0d07642.jpg)|![Cleaned_000320](https://user-images.githubusercontent.com/42628945/184532331-2c47a736-b4c1-4a28-b522-ba3d8d09b1b1.jpg)|![Cleaned_0000320](https://user-images.githubusercontent.com/42628945/184532342-44540464-fdcf-401e-a704-2eb75b0f56ab.jpg)
- 
+| Moving                                                                                                       |                                                      Fixed                                                      |Moved|Diff map1|Diff map2|Flow map|
+|:-------------------------------------------------------------------------------------------------------------|:---------------------------------------------------------------------------------------------------------------:|:---:|:---:|:---:|:---:|
+|![01_d](https://user-images.githubusercontent.com/42628945/185793840-a02fa614-0e0b-49a3-ba4f-c384c4c5dcab.jpg)|![01_p(f)](https://user-images.githubusercontent.com/42628945/185793841-7bee7ec1-6326-4a48-8d2d-ffc9aa75e946.jpg)|![01_d(mvd)](https://user-images.githubusercontent.com/42628945/185793835-ebc0b317-836e-40ef-b694-556ba3749faa.jpg)|![01_qvr](https://user-images.githubusercontent.com/42628945/185793838-8631d1db-ea65-4d6d-8497-91a7669115b8.jpg)|![01_fl](https://user-images.githubusercontent.com/42628945/185793839-0afa215e-d149-4ee1-a3ca-b4924b1698f7.jpg)|
+
 
 ## Implementations
 - Random split of data into Train & Val sets 
@@ -46,20 +37,33 @@ A UNet based CT scan (Multiphase CT scan and lung CT) registration using Pytorch
 ### Directory Hierarchy
 ``` 
 .
-├── MRI2CT_synthsis_pytorch
-|   ├── dataset
-|   |   ├── DataPreprocessing.py
-|   |   ├── DataSlicing.py
-|   |   ├── create_data.py
-|   ├── models
-|   |   ├── build_model.py
-|   |   ├── unet_model.py
-|   ├── script
-|   |   ├── data_prep.ipynb
-|   |   ├── runme.sh
-|   ├── args.py
-|   ├── train_val.py
-
+├── srcImageReg
+|   ├── lung_reg
+|   |   
+|   ├── tf
+|   |   ├── cym
+|   |   ├── vxm
+|   ├── torch
+|   |   ├── cym
+|   |   ├── vxm
+|   |   |   ├── data_preparation
+|   |   |   |   ├── creat_data_3d.py
+|   |   |   |   ├── load_3d.py
+|   |   |   |   ├── preprocess_3d.py
+|   |   |   |   ├── utils.py
+|   |   |   ├── logs
+|   |   |   ├── others
+|   |   |   ├── pytorch
+|   |   |   |   ├── build_model.py
+|   |   |   |   ├── losses.py
+|   |   |   |   ├── metrics.py
+|   |   |   |   ├── model.py
+|   |   |   ├── scripts
+|   |   |   |   ├── infer.sh
+|   |   |   |   ├── runme.sh
+|   |   |   ├── args.py
+|   |   |   ├── ndutils.py
+|   |   |   ├── train_val.py
 ```  
 
 ### Data Preprocessing
