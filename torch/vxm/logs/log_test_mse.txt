@@ -1,0 +1,1208 @@
+INFO:root:Namespace(Tensor=<class 'torch.cuda.FloatTensor'>, accel_method='gpu', batch_size=1, checkpoint=None, data_loss='mse', data_parallel=True, data_type='dicom', debug=0, dec_nf=[32, 32, 32, 32, 16, 8], device='cuda', dim=3, drop_prob=0.0, enc_nf=[32, 32, 32, 8], epochs=20, exp_name=PosixPath('ckp_test'), export_dir=PosixPath('/media/monib/ext1/work2022/voxelmorph_nets/voxelmorph_v02/ckp_test'), flow_save_path=PosixPath('/media/monib/ext1/work2022/Base_Dataset/test/output/flows'), full_size=True, interpn='nearest', log_file_name='log_test_mse', lr=0.001, moved_mask_save_path=None, moved_save_path=PosixPath('/media/monib/ext1/work2022/Base_Dataset/test/output/moved'), norm_method='min-mix', op_sys='linux', optim='Adam', patch_size=256, reg_param=0.01, report_interval=10, report_interval_epoch=5000, resume=False, save_npy_flow=0, seed=42, sf=1.0, switch_residualpath=0, train_fixed_data=PosixPath('/media/monib/ext1/work2022/Base_Dataset/test/input/train/example_B'), train_fixed_mask=None, train_moving_data=PosixPath('/media/monib/ext1/work2022/Base_Dataset/test/input/train/example_A'), train_moving_mask=None, use_mask=False, use_patch=False, val_fixed_data=PosixPath('/media/monib/ext1/work2022/Base_Dataset/test/input/val/example_B'), val_fixed_mask=None, val_moving_data=PosixPath('/media/monib/ext1/work2022/Base_Dataset/test/input/val/example_A'), val_moving_mask=None)
+INFO:root:DataParallel(
+  (module): BuildModel(
+    (VoxelMorph): cvpr2018_net(
+      (unet_model): Unet(
+        (encoder): ModuleList(
+          (0): ConvBlock(
+            (Conv): Conv3d(2, 32, kernel_size=(3, 3, 3), stride=(2, 2, 2), padding=(1, 1, 1))
+            (Norm): InstanceNorm3d(32, eps=1e-05, momentum=0.1, affine=False, track_running_stats=False)
+            (Activation): LeakyReLU(negative_slope=0.2)
+          )
+          (1): ConvBlock(
+            (Conv): Conv3d(32, 32, kernel_size=(3, 3, 3), stride=(2, 2, 2), padding=(1, 1, 1))
+            (Norm): InstanceNorm3d(32, eps=1e-05, momentum=0.1, affine=False, track_running_stats=False)
+            (Activation): LeakyReLU(negative_slope=0.2)
+          )
+          (2): ConvBlock(
+            (Conv): Conv3d(32, 32, kernel_size=(3, 3, 3), stride=(2, 2, 2), padding=(1, 1, 1))
+            (Norm): InstanceNorm3d(32, eps=1e-05, momentum=0.1, affine=False, track_running_stats=False)
+            (Activation): LeakyReLU(negative_slope=0.2)
+          )
+          (3): ConvBlock(
+            (Conv): Conv3d(32, 8, kernel_size=(3, 3, 3), stride=(2, 2, 2), padding=(1, 1, 1))
+            (Norm): InstanceNorm3d(8, eps=1e-05, momentum=0.1, affine=False, track_running_stats=False)
+            (Activation): LeakyReLU(negative_slope=0.2)
+          )
+        )
+        (decoder): ModuleList(
+          (0): ConvBlock(
+            (Conv): Conv3d(8, 32, kernel_size=(3, 3, 3), stride=(1, 1, 1), padding=(1, 1, 1))
+            (Norm): InstanceNorm3d(32, eps=1e-05, momentum=0.1, affine=False, track_running_stats=False)
+            (Activation): LeakyReLU(negative_slope=0.2)
+          )
+          (1): ConvBlock(
+            (Conv): Conv3d(64, 32, kernel_size=(3, 3, 3), stride=(1, 1, 1), padding=(1, 1, 1))
+            (Norm): InstanceNorm3d(32, eps=1e-05, momentum=0.1, affine=False, track_running_stats=False)
+            (Activation): LeakyReLU(negative_slope=0.2)
+          )
+          (2): ConvBlock(
+            (Conv): Conv3d(64, 32, kernel_size=(3, 3, 3), stride=(1, 1, 1), padding=(1, 1, 1))
+            (Norm): InstanceNorm3d(32, eps=1e-05, momentum=0.1, affine=False, track_running_stats=False)
+            (Activation): LeakyReLU(negative_slope=0.2)
+          )
+          (3): ConvBlock(
+            (Conv): Conv3d(64, 32, kernel_size=(3, 3, 3), stride=(1, 1, 1), padding=(1, 1, 1))
+            (Norm): InstanceNorm3d(32, eps=1e-05, momentum=0.1, affine=False, track_running_stats=False)
+            (Activation): LeakyReLU(negative_slope=0.2)
+          )
+          (4): ConvBlock(
+            (Conv): Conv3d(32, 16, kernel_size=(3, 3, 3), stride=(1, 1, 1), padding=(1, 1, 1))
+            (Norm): InstanceNorm3d(16, eps=1e-05, momentum=0.1, affine=False, track_running_stats=False)
+            (Activation): LeakyReLU(negative_slope=0.2)
+          )
+          (5): ConvBlock(
+            (Conv): Conv3d(18, 8, kernel_size=(3, 3, 3), stride=(1, 1, 1), padding=(1, 1, 1))
+            (Norm): InstanceNorm3d(8, eps=1e-05, momentum=0.1, affine=False, track_running_stats=False)
+            (Activation): LeakyReLU(negative_slope=0.2)
+          )
+        )
+        (upsample): Upsample(scale_factor=2.0, mode=nearest)
+      )
+      (flow): Conv3d(8, 3, kernel_size=(3, 3, 3), stride=(1, 1, 1), padding=(1, 1, 1))
+    )
+  )
+)
+INFO:root:Epoch = [   0/20]
+INFO:root: Train -> Combined Loss = 1.63e+04, Data Loss = 16289, Flow Loss = 0.000191447, Dice loss = nan
+INFO:root: Val -> Combined Loss =  2.5e+04, Data Loss =  2.5e+04, Flow Loss = -3.03e-06, Dice loss = nan
+INFO:root: Train duration =  10.086s, Val duration = 3.046s
+INFO:root:Epoch = [   1/20]
+INFO:root: Train -> Combined Loss = 1.64e+04, Data Loss = 16350.1, Flow Loss = 3.6453e-06, Dice loss = nan
+INFO:root: Val -> Combined Loss =  2.48e+04, Data Loss =  2.48e+04, Flow Loss = -8.07e-06, Dice loss = nan
+INFO:root: Train duration =  10.959s, Val duration = 2.998s
+INFO:root:Epoch = [   2/20]
+INFO:root: Train -> Combined Loss = 2.72e+04, Data Loss = 27160.4, Flow Loss = 2.13798e-06, Dice loss = nan
+INFO:root: Val -> Combined Loss =  2.85e+04, Data Loss =  2.85e+04, Flow Loss = -1.33e-05, Dice loss = nan
+INFO:root: Train duration =  9.349s, Val duration = 2.873s
+INFO:root:Epoch = [   3/20]
+INFO:root: Train -> Combined Loss = 3.4e+04, Data Loss = 33972.4, Flow Loss = 1.51948e-06, Dice loss = nan
+INFO:root: Val -> Combined Loss =  3.25e+04, Data Loss =  3.25e+04, Flow Loss = -1.57e-05, Dice loss = nan
+INFO:root: Train duration =  10.349s, Val duration = 2.927s
+INFO:root:Epoch = [   4/20]
+INFO:root: Train -> Combined Loss = 3e+04, Data Loss = 30027.2, Flow Loss = -1.43146e-06, Dice loss = nan
+INFO:root: Val -> Combined Loss =  2.96e+04, Data Loss =  2.96e+04, Flow Loss = -1.18e-05, Dice loss = nan
+INFO:root: Train duration =  10.582s, Val duration = 2.818s
+INFO:root:Epoch = [   5/20]
+INFO:root: Train -> Combined Loss = 1.81e+04, Data Loss = 18122.4, Flow Loss = -2.90972e-06, Dice loss = nan
+INFO:root: Val -> Combined Loss =  2.68e+04, Data Loss =  2.68e+04, Flow Loss = -1.02e-05, Dice loss = nan
+INFO:root: Train duration =  10.756s, Val duration = 2.920s
+INFO:root:Epoch = [   6/20]
+INFO:root: Train -> Combined Loss = 1.76e+04, Data Loss = 17567.4, Flow Loss = -4.56208e-06, Dice loss = nan
+INFO:root: Val -> Combined Loss =  2.71e+04, Data Loss =  2.71e+04, Flow Loss = -1.05e-05, Dice loss = nan
+INFO:root: Train duration =  10.047s, Val duration = 2.863s
+INFO:root:Epoch = [   7/20]
+INFO:root: Train -> Combined Loss = 1.73e+04, Data Loss = 17276.9, Flow Loss = -6.23376e-06, Dice loss = nan
+INFO:root: Val -> Combined Loss =  2.66e+04, Data Loss =  2.66e+04, Flow Loss = -1.02e-05, Dice loss = nan
+INFO:root: Train duration =  9.004s, Val duration = 2.926s
+INFO:root:Epoch = [   8/20]
+INFO:root: Train -> Combined Loss = 1.73e+04, Data Loss = 17309.1, Flow Loss = -7.86543e-06, Dice loss = nan
+INFO:root: Val -> Combined Loss =  2.67e+04, Data Loss =  2.67e+04, Flow Loss = -1.04e-05, Dice loss = nan
+INFO:root: Train duration =  9.101s, Val duration = 2.769s
+INFO:root:Epoch = [   9/20]
+INFO:root: Train -> Combined Loss = 1.71e+04, Data Loss = 17103.4, Flow Loss = -1.01044e-05, Dice loss = nan
+INFO:root: Val -> Combined Loss =  2.72e+04, Data Loss =  2.72e+04, Flow Loss = -1.14e-05, Dice loss = nan
+INFO:root: Train duration =  10.272s, Val duration = 2.939s
+INFO:root:Epoch = [  10/20]
+INFO:root: Train -> Combined Loss = 1.72e+04, Data Loss = 17229.2, Flow Loss = -1.17338e-05, Dice loss = nan
+INFO:root: Val -> Combined Loss =  2.64e+04, Data Loss =  2.64e+04, Flow Loss = -1.06e-05, Dice loss = nan
+INFO:root: Train duration =  10.202s, Val duration = 2.797s
+INFO:root:Epoch = [  11/20]
+INFO:root: Train -> Combined Loss = 1.7e+04, Data Loss = 17039.5, Flow Loss = -1.6011e-05, Dice loss = nan
+INFO:root: Val -> Combined Loss =  2.8e+04, Data Loss =  2.8e+04, Flow Loss = -9.62e-06, Dice loss = nan
+INFO:root: Train duration =  9.009s, Val duration = 2.788s
+INFO:root:Epoch = [  12/20]
+INFO:root: Train -> Combined Loss = 1.69e+04, Data Loss = 16854.7, Flow Loss = -2.10149e-05, Dice loss = nan
+INFO:root: Val -> Combined Loss =  2.87e+04, Data Loss =  2.87e+04, Flow Loss = -1.25e-05, Dice loss = nan
+INFO:root: Train duration =  10.218s, Val duration = 2.783s
+INFO:root:Epoch = [  13/20]
+INFO:root: Train -> Combined Loss = 1.7e+04, Data Loss = 17001.1, Flow Loss = -2.36623e-05, Dice loss = nan
+INFO:root: Val -> Combined Loss =  2.84e+04, Data Loss =  2.84e+04, Flow Loss = -1.37e-05, Dice loss = nan
+INFO:root: Train duration =  10.222s, Val duration = 2.854s
+INFO:root:Epoch = [  14/20]
+INFO:root: Train -> Combined Loss = 1.71e+04, Data Loss = 17090.7, Flow Loss = -2.8582e-05, Dice loss = nan
+INFO:root: Val -> Combined Loss =  2.84e+04, Data Loss =  2.84e+04, Flow Loss = -1.55e-05, Dice loss = nan
+INFO:root: Train duration =  10.172s, Val duration = 2.880s
+INFO:root:Epoch = [  15/20]
+INFO:root: Train -> Combined Loss = 1.72e+04, Data Loss = 17185.1, Flow Loss = -3.19928e-05, Dice loss = nan
+INFO:root: Val -> Combined Loss =  2.85e+04, Data Loss =  2.85e+04, Flow Loss = -1.72e-05, Dice loss = nan
+INFO:root: Train duration =  10.263s, Val duration = 2.908s
+INFO:root:Epoch = [  16/20]
+INFO:root: Train -> Combined Loss = 1.71e+04, Data Loss = 17095.1, Flow Loss = -3.26797e-05, Dice loss = nan
+INFO:root: Val -> Combined Loss =  2.87e+04, Data Loss =  2.87e+04, Flow Loss = -2.08e-05, Dice loss = nan
+INFO:root: Train duration =  8.990s, Val duration = 2.857s
+INFO:root:Epoch = [  17/20]
+INFO:root: Train -> Combined Loss = 1.72e+04, Data Loss = 17219.8, Flow Loss = -3.79467e-05, Dice loss = nan
+INFO:root: Val -> Combined Loss =  2.92e+04, Data Loss =  2.92e+04, Flow Loss = -2.52e-05, Dice loss = nan
+INFO:root: Train duration =  8.924s, Val duration = 2.938s
+INFO:root:Epoch = [  18/20]
+INFO:root: Train -> Combined Loss = 1.81e+04, Data Loss = 18128, Flow Loss = -4.36311e-05, Dice loss = nan
+INFO:root: Val -> Combined Loss =  2.89e+04, Data Loss =  2.89e+04, Flow Loss = -2.82e-05, Dice loss = nan
+INFO:root: Train duration =  10.041s, Val duration = 2.825s
+INFO:root:Epoch = [  19/20]
+INFO:root: Train -> Combined Loss = 2.07e+04, Data Loss = 20656.5, Flow Loss = -5.08138e-05, Dice loss = nan
+INFO:root: Val -> Combined Loss =  2.9e+04, Data Loss =  2.9e+04, Flow Loss = -3.38e-05, Dice loss = nan
+INFO:root: Train duration =  10.050s, Val duration = 2.895s
+INFO:root:Namespace(Tensor=<class 'torch.cuda.FloatTensor'>, accel_method='gpu', batch_size=1, checkpoint=None, data_loss='mse', data_parallel=True, data_type='dicom', debug=0, dec_nf=[32, 32, 32, 32, 16, 8], device='cuda', dim=3, drop_prob=0.0, enc_nf=[32, 32, 32, 8], epochs=20, exp_name=PosixPath('ckp_test'), export_dir=PosixPath('/media/monib/ext1/work2022/voxelmorph_nets/voxelmorph_v02/ckp_test'), flow_save_path=PosixPath('/media/monib/ext1/work2022/Base_Dataset/test/output/flows'), full_size=True, interpn='nearest', log_file_name='log_test_mse', lr=0.001, moved_mask_save_path=None, moved_save_path=PosixPath('/media/monib/ext1/work2022/Base_Dataset/test/output/moved'), norm_method='min-mix', op_sys='linux', optim='Adam', patch_size=256, reg_param=0.01, report_interval=10, report_interval_epoch=5000, resume=False, save_npy_flow=0, seed=42, sf=1.0, switch_residualpath=0, train_fixed_data=PosixPath('/media/monib/ext1/work2022/Base_Dataset/test/input/train/example_B'), train_fixed_mask=None, train_moving_data=PosixPath('/media/monib/ext1/work2022/Base_Dataset/test/input/train/example_A'), train_moving_mask=None, use_mask=False, use_patch=False, val_fixed_data=PosixPath('/media/monib/ext1/work2022/Base_Dataset/test/input/val/example_B'), val_fixed_mask=None, val_moving_data=PosixPath('/media/monib/ext1/work2022/Base_Dataset/test/input/val/example_A'), val_moving_mask=None)
+INFO:root:DataParallel(
+  (module): BuildModel(
+    (VoxelMorph): cvpr2018_net(
+      (unet_model): Unet(
+        (encoder): ModuleList(
+          (0): ConvBlock(
+            (Conv): Conv3d(2, 32, kernel_size=(3, 3, 3), stride=(2, 2, 2), padding=(1, 1, 1))
+            (Norm): InstanceNorm3d(32, eps=1e-05, momentum=0.1, affine=False, track_running_stats=False)
+            (Activation): LeakyReLU(negative_slope=0.2)
+          )
+          (1): ConvBlock(
+            (Conv): Conv3d(32, 32, kernel_size=(3, 3, 3), stride=(2, 2, 2), padding=(1, 1, 1))
+            (Norm): InstanceNorm3d(32, eps=1e-05, momentum=0.1, affine=False, track_running_stats=False)
+            (Activation): LeakyReLU(negative_slope=0.2)
+          )
+          (2): ConvBlock(
+            (Conv): Conv3d(32, 32, kernel_size=(3, 3, 3), stride=(2, 2, 2), padding=(1, 1, 1))
+            (Norm): InstanceNorm3d(32, eps=1e-05, momentum=0.1, affine=False, track_running_stats=False)
+            (Activation): LeakyReLU(negative_slope=0.2)
+          )
+          (3): ConvBlock(
+            (Conv): Conv3d(32, 8, kernel_size=(3, 3, 3), stride=(2, 2, 2), padding=(1, 1, 1))
+            (Norm): InstanceNorm3d(8, eps=1e-05, momentum=0.1, affine=False, track_running_stats=False)
+            (Activation): LeakyReLU(negative_slope=0.2)
+          )
+        )
+        (decoder): ModuleList(
+          (0): ConvBlock(
+            (Conv): Conv3d(8, 32, kernel_size=(3, 3, 3), stride=(1, 1, 1), padding=(1, 1, 1))
+            (Norm): InstanceNorm3d(32, eps=1e-05, momentum=0.1, affine=False, track_running_stats=False)
+            (Activation): LeakyReLU(negative_slope=0.2)
+          )
+          (1): ConvBlock(
+            (Conv): Conv3d(64, 32, kernel_size=(3, 3, 3), stride=(1, 1, 1), padding=(1, 1, 1))
+            (Norm): InstanceNorm3d(32, eps=1e-05, momentum=0.1, affine=False, track_running_stats=False)
+            (Activation): LeakyReLU(negative_slope=0.2)
+          )
+          (2): ConvBlock(
+            (Conv): Conv3d(64, 32, kernel_size=(3, 3, 3), stride=(1, 1, 1), padding=(1, 1, 1))
+            (Norm): InstanceNorm3d(32, eps=1e-05, momentum=0.1, affine=False, track_running_stats=False)
+            (Activation): LeakyReLU(negative_slope=0.2)
+          )
+          (3): ConvBlock(
+            (Conv): Conv3d(64, 32, kernel_size=(3, 3, 3), stride=(1, 1, 1), padding=(1, 1, 1))
+            (Norm): InstanceNorm3d(32, eps=1e-05, momentum=0.1, affine=False, track_running_stats=False)
+            (Activation): LeakyReLU(negative_slope=0.2)
+          )
+          (4): ConvBlock(
+            (Conv): Conv3d(32, 16, kernel_size=(3, 3, 3), stride=(1, 1, 1), padding=(1, 1, 1))
+            (Norm): InstanceNorm3d(16, eps=1e-05, momentum=0.1, affine=False, track_running_stats=False)
+            (Activation): LeakyReLU(negative_slope=0.2)
+          )
+          (5): ConvBlock(
+            (Conv): Conv3d(18, 8, kernel_size=(3, 3, 3), stride=(1, 1, 1), padding=(1, 1, 1))
+            (Norm): InstanceNorm3d(8, eps=1e-05, momentum=0.1, affine=False, track_running_stats=False)
+            (Activation): LeakyReLU(negative_slope=0.2)
+          )
+        )
+        (upsample): Upsample(scale_factor=2.0, mode=nearest)
+      )
+      (flow): Conv3d(8, 3, kernel_size=(3, 3, 3), stride=(1, 1, 1), padding=(1, 1, 1))
+    )
+  )
+)
+INFO:root:Epoch = [   0/20]
+INFO:root: Train -> Combined Loss = 1.19e+04, Data Loss = 11912.2, Flow Loss = 0.00010391, Dice loss = nan
+INFO:root: Val -> Combined Loss =  9.74e+03, Data Loss =  9.74e+03, Flow Loss = -2.11e-06, Dice loss = nan
+INFO:root: Train duration =  11.192s, Val duration = 4.006s
+INFO:root:Epoch = [   1/20]
+INFO:root: Train -> Combined Loss = 4.33e+04, Data Loss = 43319.6, Flow Loss = -3.36136e-06, Dice loss = nan
+INFO:root: Val -> Combined Loss =  2.76e+04, Data Loss =  2.76e+04, Flow Loss = -6.32e-06, Dice loss = nan
+INFO:root: Train duration =  10.474s, Val duration = 3.681s
+INFO:root:Epoch = [   2/20]
+INFO:root: Train -> Combined Loss = 4.45e+04, Data Loss = 44450.7, Flow Loss = -8.65728e-06, Dice loss = nan
+INFO:root: Val -> Combined Loss =  2.98e+04, Data Loss =  2.98e+04, Flow Loss = -8.15e-06, Dice loss = nan
+INFO:root: Train duration =  10.483s, Val duration = 3.716s
+INFO:root:Epoch = [   3/20]
+INFO:root: Train -> Combined Loss = 4.47e+04, Data Loss = 44681.5, Flow Loss = -1.17826e-05, Dice loss = nan
+INFO:root: Val -> Combined Loss =  3.01e+04, Data Loss =  3.01e+04, Flow Loss = -1.04e-05, Dice loss = nan
+INFO:root: Train duration =  10.785s, Val duration = 3.475s
+INFO:root:Epoch = [   4/20]
+INFO:root: Train -> Combined Loss = 4.44e+04, Data Loss = 44422.6, Flow Loss = -1.51718e-05, Dice loss = nan
+INFO:root: Val -> Combined Loss =  2.75e+04, Data Loss =  2.75e+04, Flow Loss = -1.19e-05, Dice loss = nan
+INFO:root: Train duration =  10.566s, Val duration = 3.728s
+INFO:root:Epoch = [   5/20]
+INFO:root: Train -> Combined Loss = 4.07e+04, Data Loss = 40716.5, Flow Loss = -1.88533e-05, Dice loss = nan
+INFO:root: Val -> Combined Loss =  1.81e+04, Data Loss =  1.81e+04, Flow Loss = -1.75e-05, Dice loss = nan
+INFO:root: Train duration =  10.524s, Val duration = 3.848s
+INFO:root:Epoch = [   6/20]
+INFO:root: Train -> Combined Loss = 4.11e+04, Data Loss = 41141.4, Flow Loss = -2.68206e-05, Dice loss = nan
+INFO:root: Val -> Combined Loss =  3.39e+04, Data Loss =  3.39e+04, Flow Loss = -2.05e-05, Dice loss = nan
+INFO:root: Train duration =  10.472s, Val duration = 3.738s
+INFO:root:Epoch = [   7/20]
+INFO:root: Train -> Combined Loss = 4.45e+04, Data Loss = 44474.4, Flow Loss = -2.74813e-05, Dice loss = nan
+INFO:root: Val -> Combined Loss =  3.28e+04, Data Loss =  3.28e+04, Flow Loss = -2.45e-05, Dice loss = nan
+INFO:root: Train duration =  10.457s, Val duration = 3.513s
+INFO:root:Epoch = [   8/20]
+INFO:root: Train -> Combined Loss = 4.52e+04, Data Loss = 45225.8, Flow Loss = -4.01989e-05, Dice loss = nan
+INFO:root: Val -> Combined Loss =  3.68e+04, Data Loss =  3.68e+04, Flow Loss = -3.38e-05, Dice loss = nan
+INFO:root: Train duration =  10.544s, Val duration = 3.757s
+INFO:root:Epoch = [   9/20]
+INFO:root: Train -> Combined Loss = 4.53e+04, Data Loss = 45299, Flow Loss = -5.25796e-05, Dice loss = nan
+INFO:root: Val -> Combined Loss =  3.89e+04, Data Loss =  3.89e+04, Flow Loss = -4.35e-05, Dice loss = nan
+INFO:root: Train duration =  10.923s, Val duration = 3.743s
+INFO:root:Epoch = [  10/20]
+INFO:root: Train -> Combined Loss = 4.64e+04, Data Loss = 46398.1, Flow Loss = -6.66222e-05, Dice loss = nan
+INFO:root: Val -> Combined Loss =  3.97e+04, Data Loss =  3.97e+04, Flow Loss = -6e-05, Dice loss = nan
+INFO:root: Train duration =  10.787s, Val duration = 3.513s
+INFO:root:Epoch = [  11/20]
+INFO:root: Train -> Combined Loss = 4.67e+04, Data Loss = 46661.5, Flow Loss = -9.07014e-05, Dice loss = nan
+INFO:root: Val -> Combined Loss =  4.53e+04, Data Loss =  4.53e+04, Flow Loss = -9.14e-05, Dice loss = nan
+INFO:root: Train duration =  10.770s, Val duration = 3.528s
+INFO:root:Epoch = [  12/20]
+INFO:root: Train -> Combined Loss = 5.44e+04, Data Loss = 54377.7, Flow Loss = -0.00012847, Dice loss = nan
+INFO:root: Val -> Combined Loss =  5.15e+04, Data Loss =  5.15e+04, Flow Loss = -0.000116, Dice loss = nan
+INFO:root: Train duration =  10.447s, Val duration = 3.491s
+INFO:root:Epoch = [  13/20]
+INFO:root: Train -> Combined Loss = 5.47e+04, Data Loss = 54677.2, Flow Loss = -0.000170998, Dice loss = nan
+INFO:root: Val -> Combined Loss =  5.27e+04, Data Loss =  5.27e+04, Flow Loss = -0.000149, Dice loss = nan
+INFO:root: Train duration =  10.903s, Val duration = 3.720s
+INFO:root:Epoch = [  14/20]
+INFO:root: Train -> Combined Loss = 5.88e+04, Data Loss = 58830.6, Flow Loss = -0.000181671, Dice loss = nan
+INFO:root: Val -> Combined Loss =  6.35e+04, Data Loss =  6.35e+04, Flow Loss = -6.85e-05, Dice loss = nan
+INFO:root: Train duration =  10.332s, Val duration = 3.431s
+INFO:root:Epoch = [  15/20]
+INFO:root: Train -> Combined Loss = 6.78e+04, Data Loss = 67768.5, Flow Loss = -0.00017385, Dice loss = nan
+INFO:root: Val -> Combined Loss =  5.67e+04, Data Loss =  5.67e+04, Flow Loss = -0.000164, Dice loss = nan
+INFO:root: Train duration =  10.387s, Val duration = 3.700s
+INFO:root:Epoch = [  16/20]
+INFO:root: Train -> Combined Loss = 5.6e+04, Data Loss = 56004.7, Flow Loss = -0.0002302, Dice loss = nan
+INFO:root: Val -> Combined Loss =  6.15e+04, Data Loss =  6.15e+04, Flow Loss = -0.000209, Dice loss = nan
+INFO:root: Train duration =  10.424s, Val duration = 3.647s
+INFO:root:Epoch = [  17/20]
+INFO:root: Train -> Combined Loss = 5.86e+04, Data Loss = 58605.4, Flow Loss = -0.000293398, Dice loss = nan
+INFO:root: Val -> Combined Loss =  6.51e+04, Data Loss =  6.51e+04, Flow Loss = -0.000247, Dice loss = nan
+INFO:root: Train duration =  10.544s, Val duration = 3.451s
+INFO:root:Epoch = [  18/20]
+INFO:root: Train -> Combined Loss = 5.99e+04, Data Loss = 59897, Flow Loss = -0.00037075, Dice loss = nan
+INFO:root: Val -> Combined Loss =  6.71e+04, Data Loss =  6.71e+04, Flow Loss = -0.000307, Dice loss = nan
+INFO:root: Train duration =  10.745s, Val duration = 3.431s
+INFO:root:Epoch = [  19/20]
+INFO:root: Train -> Combined Loss = 6.64e+04, Data Loss = 66408.3, Flow Loss = -0.000387189, Dice loss = nan
+INFO:root: Val -> Combined Loss =  9.15e+04, Data Loss =  9.15e+04, Flow Loss = 6.25e-05, Dice loss = nan
+INFO:root: Train duration =  10.434s, Val duration = 3.657s
+INFO:root:Namespace(Tensor=<class 'torch.cuda.FloatTensor'>, accel_method='gpu', batch_size=1, checkpoint=None, data_loss='mse', data_parallel=True, data_type='dicom', debug=0, dec_nf=[32, 32, 32, 32, 16, 8], device='cuda', dim=3, drop_prob=0.0, enc_nf=[32, 32, 32, 8], epochs=40, exp_name=PosixPath('ckp_test'), export_dir=PosixPath('/media/monib/ext1/work2022/voxelmorph_nets/voxelmorph_v02/ckp_test'), flow_save_path=PosixPath('/media/monib/ext1/work2022/Base_Dataset/test/output/flows'), full_size=True, interpn='nearest', log_file_name='log_test_mse', lr=0.001, moved_mask_save_path=None, moved_save_path=PosixPath('/media/monib/ext1/work2022/Base_Dataset/test/output/moved'), norm_method='z-score', op_sys='linux', optim='Adam', patch_size=256, reg_param=0.01, report_interval=10, report_interval_epoch=5000, resume=False, save_npy_flow=0, seed=42, sf=1.0, switch_residualpath=0, train_fixed_data=PosixPath('/media/monib/ext1/work2022/Base_Dataset/test/input/train/example_B'), train_fixed_mask=None, train_moving_data=PosixPath('/media/monib/ext1/work2022/Base_Dataset/test/input/train/example_A'), train_moving_mask=None, use_mask=False, use_patch=False, val_fixed_data=PosixPath('/media/monib/ext1/work2022/Base_Dataset/test/input/val/example_B'), val_fixed_mask=None, val_moving_data=PosixPath('/media/monib/ext1/work2022/Base_Dataset/test/input/val/example_A'), val_moving_mask=None)
+INFO:root:DataParallel(
+  (module): BuildModel(
+    (VoxelMorph): cvpr2018_net(
+      (unet_model): Unet(
+        (encoder): ModuleList(
+          (0): ConvBlock(
+            (Conv): Conv3d(2, 32, kernel_size=(3, 3, 3), stride=(2, 2, 2), padding=(1, 1, 1))
+            (Norm): InstanceNorm3d(32, eps=1e-05, momentum=0.1, affine=False, track_running_stats=False)
+            (Activation): LeakyReLU(negative_slope=0.2)
+          )
+          (1): ConvBlock(
+            (Conv): Conv3d(32, 32, kernel_size=(3, 3, 3), stride=(2, 2, 2), padding=(1, 1, 1))
+            (Norm): InstanceNorm3d(32, eps=1e-05, momentum=0.1, affine=False, track_running_stats=False)
+            (Activation): LeakyReLU(negative_slope=0.2)
+          )
+          (2): ConvBlock(
+            (Conv): Conv3d(32, 32, kernel_size=(3, 3, 3), stride=(2, 2, 2), padding=(1, 1, 1))
+            (Norm): InstanceNorm3d(32, eps=1e-05, momentum=0.1, affine=False, track_running_stats=False)
+            (Activation): LeakyReLU(negative_slope=0.2)
+          )
+          (3): ConvBlock(
+            (Conv): Conv3d(32, 8, kernel_size=(3, 3, 3), stride=(2, 2, 2), padding=(1, 1, 1))
+            (Norm): InstanceNorm3d(8, eps=1e-05, momentum=0.1, affine=False, track_running_stats=False)
+            (Activation): LeakyReLU(negative_slope=0.2)
+          )
+        )
+        (decoder): ModuleList(
+          (0): ConvBlock(
+            (Conv): Conv3d(8, 32, kernel_size=(3, 3, 3), stride=(1, 1, 1), padding=(1, 1, 1))
+            (Norm): InstanceNorm3d(32, eps=1e-05, momentum=0.1, affine=False, track_running_stats=False)
+            (Activation): LeakyReLU(negative_slope=0.2)
+          )
+          (1): ConvBlock(
+            (Conv): Conv3d(64, 32, kernel_size=(3, 3, 3), stride=(1, 1, 1), padding=(1, 1, 1))
+            (Norm): InstanceNorm3d(32, eps=1e-05, momentum=0.1, affine=False, track_running_stats=False)
+            (Activation): LeakyReLU(negative_slope=0.2)
+          )
+          (2): ConvBlock(
+            (Conv): Conv3d(64, 32, kernel_size=(3, 3, 3), stride=(1, 1, 1), padding=(1, 1, 1))
+            (Norm): InstanceNorm3d(32, eps=1e-05, momentum=0.1, affine=False, track_running_stats=False)
+            (Activation): LeakyReLU(negative_slope=0.2)
+          )
+          (3): ConvBlock(
+            (Conv): Conv3d(64, 32, kernel_size=(3, 3, 3), stride=(1, 1, 1), padding=(1, 1, 1))
+            (Norm): InstanceNorm3d(32, eps=1e-05, momentum=0.1, affine=False, track_running_stats=False)
+            (Activation): LeakyReLU(negative_slope=0.2)
+          )
+          (4): ConvBlock(
+            (Conv): Conv3d(32, 16, kernel_size=(3, 3, 3), stride=(1, 1, 1), padding=(1, 1, 1))
+            (Norm): InstanceNorm3d(16, eps=1e-05, momentum=0.1, affine=False, track_running_stats=False)
+            (Activation): LeakyReLU(negative_slope=0.2)
+          )
+          (5): ConvBlock(
+            (Conv): Conv3d(18, 8, kernel_size=(3, 3, 3), stride=(1, 1, 1), padding=(1, 1, 1))
+            (Norm): InstanceNorm3d(8, eps=1e-05, momentum=0.1, affine=False, track_running_stats=False)
+            (Activation): LeakyReLU(negative_slope=0.2)
+          )
+        )
+        (upsample): Upsample(scale_factor=2.0, mode=nearest)
+      )
+      (flow): Conv3d(8, 3, kernel_size=(3, 3, 3), stride=(1, 1, 1), padding=(1, 1, 1))
+    )
+  )
+)
+INFO:root:Epoch = [   0/40]
+INFO:root: Train -> Combined Loss = 0.0668, Data Loss = 0.0668198, Flow Loss = -3.98746e-06, Dice loss = nan
+INFO:root: Val -> Combined Loss =  0.0377, Data Loss =  0.0377, Flow Loss = -3.73e-05, Dice loss = nan
+INFO:root: Train duration =  11.616s, Val duration = 4.265s
+INFO:root:Epoch = [   1/40]
+INFO:root: Train -> Combined Loss = 0.0329, Data Loss = 0.0330065, Flow Loss = -0.000113135, Dice loss = nan
+INFO:root: Val -> Combined Loss =  0.0171, Data Loss =  0.0172, Flow Loss = -0.000141, Dice loss = nan
+INFO:root: Train duration =  10.651s, Val duration = 3.977s
+INFO:root:Epoch = [   2/40]
+INFO:root: Train -> Combined Loss = 0.0355, Data Loss = 0.0357107, Flow Loss = -0.000221341, Dice loss = nan
+INFO:root: Val -> Combined Loss =  0.0373, Data Loss =  0.0375, Flow Loss = -0.000233, Dice loss = nan
+INFO:root: Train duration =  10.682s, Val duration = 3.633s
+INFO:root:Epoch = [   3/40]
+INFO:root: Train -> Combined Loss = 0.0374, Data Loss = 0.0376987, Flow Loss = -0.000345531, Dice loss = nan
+INFO:root: Val -> Combined Loss =  0.0431, Data Loss =  0.0435, Flow Loss = -0.000351, Dice loss = nan
+INFO:root: Train duration =  10.702s, Val duration = 3.972s
+INFO:root:Epoch = [   4/40]
+INFO:root: Train -> Combined Loss = 0.0407, Data Loss = 0.0411855, Flow Loss = -0.000484612, Dice loss = nan
+INFO:root: Val -> Combined Loss =  0.0423, Data Loss =  0.0427, Flow Loss = -0.000473, Dice loss = nan
+INFO:root: Train duration =  10.899s, Val duration = 3.696s
+INFO:root:Epoch = [   5/40]
+INFO:root: Train -> Combined Loss = 0.0411, Data Loss = 0.0416727, Flow Loss = -0.000610662, Dice loss = nan
+INFO:root: Val -> Combined Loss =  0.044, Data Loss =  0.0446, Flow Loss = -0.000575, Dice loss = nan
+INFO:root: Train duration =  10.782s, Val duration = 4.019s
+INFO:root:Epoch = [   6/40]
+INFO:root: Train -> Combined Loss = 0.0425, Data Loss = 0.0432527, Flow Loss = -0.0007369, Dice loss = nan
+INFO:root: Val -> Combined Loss =  0.0427, Data Loss =  0.0434, Flow Loss = -0.000708, Dice loss = nan
+INFO:root: Train duration =  10.752s, Val duration = 3.984s
+INFO:root:Epoch = [   7/40]
+INFO:root: Train -> Combined Loss = 0.0456, Data Loss = 0.0465507, Flow Loss = -0.000916962, Dice loss = nan
+INFO:root: Val -> Combined Loss =  0.0379, Data Loss =  0.0388, Flow Loss = -0.000894, Dice loss = nan
+INFO:root: Train duration =  10.938s, Val duration = 4.062s
+INFO:root:Epoch = [   8/40]
+INFO:root: Train -> Combined Loss = 0.0492, Data Loss = 0.0502991, Flow Loss = -0.00109204, Dice loss = nan
+INFO:root: Val -> Combined Loss =  0.0451, Data Loss =  0.0461, Flow Loss = -0.00103, Dice loss = nan
+INFO:root: Train duration =  10.835s, Val duration = 3.600s
+INFO:root:Epoch = [   9/40]
+INFO:root: Train -> Combined Loss = 0.0547, Data Loss = 0.0559042, Flow Loss = -0.00119179, Dice loss = nan
+INFO:root: Val -> Combined Loss =  0.0543, Data Loss =  0.0554, Flow Loss = -0.00109, Dice loss = nan
+INFO:root: Train duration =  10.631s, Val duration = 3.748s
+INFO:root:Epoch = [  10/40]
+INFO:root: Train -> Combined Loss = 0.0653, Data Loss = 0.066637, Flow Loss = -0.00135032, Dice loss = nan
+INFO:root: Val -> Combined Loss =  0.048, Data Loss =  0.0492, Flow Loss = -0.00125, Dice loss = nan
+INFO:root: Train duration =  11.048s, Val duration = 3.979s
+INFO:root:Epoch = [  11/40]
+INFO:root: Train -> Combined Loss = 0.0759, Data Loss = 0.0774868, Flow Loss = -0.00156562, Dice loss = nan
+INFO:root: Val -> Combined Loss =  0.0391, Data Loss =  0.0406, Flow Loss = -0.00147, Dice loss = nan
+INFO:root: Train duration =  11.015s, Val duration = 3.635s
+INFO:root:Epoch = [  12/40]
+INFO:root: Train -> Combined Loss = 0.0611, Data Loss = 0.0629501, Flow Loss = -0.00182498, Dice loss = nan
+INFO:root: Val -> Combined Loss =  0.0436, Data Loss =  0.0453, Flow Loss = -0.00171, Dice loss = nan
+INFO:root: Train duration =  11.067s, Val duration = 3.692s
+INFO:root:Epoch = [  13/40]
+INFO:root: Train -> Combined Loss = 0.0606, Data Loss = 0.0626534, Flow Loss = -0.00205773, Dice loss = nan
+INFO:root: Val -> Combined Loss =  0.0611, Data Loss =  0.063, Flow Loss = -0.0019, Dice loss = nan
+INFO:root: Train duration =  11.111s, Val duration = 4.027s
+INFO:root:Epoch = [  14/40]
+INFO:root: Train -> Combined Loss = 0.061, Data Loss = 0.0631335, Flow Loss = -0.00215112, Dice loss = nan
+INFO:root: Val -> Combined Loss =  0.0293, Data Loss =  0.0313, Flow Loss = -0.00193, Dice loss = nan
+INFO:root: Train duration =  10.712s, Val duration = 3.893s
+INFO:root:Epoch = [  15/40]
+INFO:root: Train -> Combined Loss = 0.0646, Data Loss = 0.0668924, Flow Loss = -0.0023283, Dice loss = nan
+INFO:root: Val -> Combined Loss =  0.0353, Data Loss =  0.0375, Flow Loss = -0.00212, Dice loss = nan
+INFO:root: Train duration =  10.910s, Val duration = 4.039s
+INFO:root:Epoch = [  16/40]
+INFO:root: Train -> Combined Loss = 0.0666, Data Loss = 0.0692234, Flow Loss = -0.00258504, Dice loss = nan
+INFO:root: Val -> Combined Loss =  0.0639, Data Loss =  0.0663, Flow Loss = -0.00236, Dice loss = nan
+INFO:root: Train duration =  10.917s, Val duration = 3.975s
+INFO:root:Epoch = [  17/40]
+INFO:root: Train -> Combined Loss = 0.0677, Data Loss = 0.0705685, Flow Loss = -0.002862, Dice loss = nan
+INFO:root: Val -> Combined Loss =  0.0681, Data Loss =  0.0707, Flow Loss = -0.0026, Dice loss = nan
+INFO:root: Train duration =  10.690s, Val duration = 4.026s
+INFO:root:Epoch = [  18/40]
+INFO:root: Train -> Combined Loss = 0.0714, Data Loss = 0.0744081, Flow Loss = -0.00297767, Dice loss = nan
+INFO:root: Val -> Combined Loss =  0.0674, Data Loss =  0.07, Flow Loss = -0.00264, Dice loss = nan
+INFO:root: Train duration =  10.936s, Val duration = 3.777s
+INFO:root:Epoch = [  19/40]
+INFO:root: Train -> Combined Loss = 0.0683, Data Loss = 0.0715153, Flow Loss = -0.00318756, Dice loss = nan
+INFO:root: Val -> Combined Loss =  0.046, Data Loss =  0.0489, Flow Loss = -0.00288, Dice loss = nan
+INFO:root: Train duration =  10.721s, Val duration = 3.718s
+INFO:root:Epoch = [  20/40]
+INFO:root: Train -> Combined Loss = 0.0932, Data Loss = 0.0966245, Flow Loss = -0.00344343, Dice loss = nan
+INFO:root: Val -> Combined Loss =  0.0837, Data Loss =  0.0868, Flow Loss = -0.00312, Dice loss = nan
+INFO:root: Train duration =  10.883s, Val duration = 3.869s
+INFO:root:Epoch = [  21/40]
+INFO:root: Train -> Combined Loss = 0.0787, Data Loss = 0.0823927, Flow Loss = -0.00371729, Dice loss = nan
+INFO:root: Val -> Combined Loss =  0.0916, Data Loss =  0.095, Flow Loss = -0.00335, Dice loss = nan
+INFO:root: Train duration =  10.995s, Val duration = 3.683s
+INFO:root:Epoch = [  22/40]
+INFO:root: Train -> Combined Loss = 0.0617, Data Loss = 0.0657043, Flow Loss = -0.00396689, Dice loss = nan
+INFO:root: Val -> Combined Loss =  0.0692, Data Loss =  0.0727, Flow Loss = -0.00354, Dice loss = nan
+INFO:root: Train duration =  10.946s, Val duration = 3.703s
+INFO:root:Epoch = [  23/40]
+INFO:root: Train -> Combined Loss = 0.0613, Data Loss = 0.0654924, Flow Loss = -0.00419371, Dice loss = nan
+INFO:root: Val -> Combined Loss =  0.0459, Data Loss =  0.0496, Flow Loss = -0.00377, Dice loss = nan
+INFO:root: Train duration =  10.736s, Val duration = 3.682s
+INFO:root:Epoch = [  24/40]
+INFO:root: Train -> Combined Loss = 0.0616, Data Loss = 0.0660427, Flow Loss = -0.00440842, Dice loss = nan
+INFO:root: Val -> Combined Loss =  0.0464, Data Loss =  0.0504, Flow Loss = -0.00396, Dice loss = nan
+INFO:root: Train duration =  10.779s, Val duration = 3.969s
+INFO:root:Epoch = [  25/40]
+INFO:root: Train -> Combined Loss = 0.0652, Data Loss = 0.0698064, Flow Loss = -0.00456365, Dice loss = nan
+INFO:root: Val -> Combined Loss =  0.0629, Data Loss =  0.0669, Flow Loss = -0.00401, Dice loss = nan
+INFO:root: Train duration =  11.105s, Val duration = 4.143s
+INFO:root:Epoch = [  26/40]
+INFO:root: Train -> Combined Loss = 0.116, Data Loss = 0.120586, Flow Loss = -0.00464554, Dice loss = nan
+INFO:root: Val -> Combined Loss =  0.0735, Data Loss =  0.0777, Flow Loss = -0.00416, Dice loss = nan
+INFO:root: Train duration =  11.043s, Val duration = 4.038s
+INFO:root:Epoch = [  27/40]
+INFO:root: Train -> Combined Loss = 0.0926, Data Loss = 0.0974927, Flow Loss = -0.00492501, Dice loss = nan
+INFO:root: Val -> Combined Loss =  0.0523, Data Loss =  0.0567, Flow Loss = -0.00442, Dice loss = nan
+INFO:root: Train duration =  11.264s, Val duration = 3.695s
+INFO:root:Epoch = [  28/40]
+INFO:root: Train -> Combined Loss = 0.0687, Data Loss = 0.0739497, Flow Loss = -0.00524895, Dice loss = nan
+INFO:root: Val -> Combined Loss =  0.0654, Data Loss =  0.0701, Flow Loss = -0.00474, Dice loss = nan
+INFO:root: Train duration =  10.684s, Val duration = 3.993s
+INFO:root:Epoch = [  29/40]
+INFO:root: Train -> Combined Loss = 0.066, Data Loss = 0.0714731, Flow Loss = -0.00549914, Dice loss = nan
+INFO:root: Val -> Combined Loss =  0.0763, Data Loss =  0.0811, Flow Loss = -0.00483, Dice loss = nan
+INFO:root: Train duration =  11.060s, Val duration = 4.004s
+INFO:root:Epoch = [  30/40]
+INFO:root: Train -> Combined Loss = 0.0764, Data Loss = 0.0821113, Flow Loss = -0.0056694, Dice loss = nan
+INFO:root: Val -> Combined Loss =  0.0663, Data Loss =  0.0714, Flow Loss = -0.00503, Dice loss = nan
+INFO:root: Train duration =  11.235s, Val duration = 3.655s
+INFO:root:Epoch = [  31/40]
+INFO:root: Train -> Combined Loss = 0.0689, Data Loss = 0.0748075, Flow Loss = -0.00593569, Dice loss = nan
+INFO:root: Val -> Combined Loss =  0.0521, Data Loss =  0.0574, Flow Loss = -0.00533, Dice loss = nan
+INFO:root: Train duration =  11.088s, Val duration = 3.742s
+INFO:root:Epoch = [  32/40]
+INFO:root: Train -> Combined Loss = 0.116, Data Loss = 0.122461, Flow Loss = -0.00623749, Dice loss = nan
+INFO:root: Val -> Combined Loss =  0.0926, Data Loss =  0.0982, Flow Loss = -0.0056, Dice loss = nan
+INFO:root: Train duration =  10.753s, Val duration = 4.015s
+INFO:root:Epoch = [  33/40]
+INFO:root: Train -> Combined Loss = 0.0941, Data Loss = 0.100621, Flow Loss = -0.00650815, Dice loss = nan
+INFO:root: Val -> Combined Loss =  0.0878, Data Loss =  0.0936, Flow Loss = -0.00581, Dice loss = nan
+INFO:root: Train duration =  11.151s, Val duration = 3.739s
+INFO:root:Epoch = [  34/40]
+INFO:root: Train -> Combined Loss = 0.0748, Data Loss = 0.081608, Flow Loss = -0.0067584, Dice loss = nan
+INFO:root: Val -> Combined Loss =  0.0943, Data Loss =  0.1, Flow Loss = -0.00599, Dice loss = nan
+INFO:root: Train duration =  10.663s, Val duration = 4.031s
+INFO:root:Epoch = [  35/40]
+INFO:root: Train -> Combined Loss = 0.0609, Data Loss = 0.0678809, Flow Loss = -0.00701994, Dice loss = nan
+INFO:root: Val -> Combined Loss =  0.0874, Data Loss =  0.0936, Flow Loss = -0.00629, Dice loss = nan
+INFO:root: Train duration =  11.134s, Val duration = 3.920s
+INFO:root:Epoch = [  36/40]
+INFO:root: Train -> Combined Loss = 0.0558, Data Loss = 0.0631721, Flow Loss = -0.00732239, Dice loss = nan
+INFO:root: Val -> Combined Loss =  0.0867, Data Loss =  0.0932, Flow Loss = -0.00646, Dice loss = nan
+INFO:root: Train duration =  11.016s, Val duration = 3.643s
+INFO:root:Epoch = [  37/40]
+INFO:root: Train -> Combined Loss = 0.0618, Data Loss = 0.0692749, Flow Loss = -0.00749668, Dice loss = nan
+INFO:root: Val -> Combined Loss =  0.0872, Data Loss =  0.0938, Flow Loss = -0.00664, Dice loss = nan
+INFO:root: Train duration =  10.946s, Val duration = 3.710s
+INFO:root:Epoch = [  38/40]
+INFO:root: Train -> Combined Loss = 0.0591, Data Loss = 0.0668661, Flow Loss = -0.00779156, Dice loss = nan
+INFO:root: Val -> Combined Loss =  0.0685, Data Loss =  0.0755, Flow Loss = -0.00694, Dice loss = nan
+INFO:root: Train duration =  10.794s, Val duration = 4.020s
+INFO:root:Epoch = [  39/40]
+INFO:root: Train -> Combined Loss = 0.0618, Data Loss = 0.0696877, Flow Loss = -0.00790867, Dice loss = nan
+INFO:root: Val -> Combined Loss =  0.0807, Data Loss =  0.0876, Flow Loss = -0.00689, Dice loss = nan
+INFO:root: Train duration =  10.750s, Val duration = 3.918s
+INFO:root:Namespace(Tensor=<class 'torch.cuda.FloatTensor'>, accel_method='gpu', batch_size=1, checkpoint=None, data_loss='ncc', data_parallel=True, data_type='dicom', debug=0, dec_nf=[32, 32, 32, 32, 16, 8], device='cuda', dim=3, drop_prob=0.0, enc_nf=[32, 32, 32, 8], epochs=40, exp_name=PosixPath('ckp_test'), export_dir=PosixPath('/media/monib/ext1/work2022/voxelmorph_nets/voxelmorph_v02/ckp_test'), flow_save_path=PosixPath('/media/monib/ext1/work2022/Base_Dataset/test/output/flows'), full_size=True, interpn='nearest', log_file_name='log_test_mse', lr=0.001, moved_mask_save_path=None, moved_save_path=PosixPath('/media/monib/ext1/work2022/Base_Dataset/test/output/moved'), norm_method='z-score', op_sys='linux', optim='Adam', patch_size=256, reg_param=1.0, report_interval=10, report_interval_epoch=5000, resume=False, save_npy_flow=0, seed=42, sf=1.0, switch_residualpath=0, train_fixed_data=PosixPath('/media/monib/ext1/work2022/Base_Dataset/test/input/train/example_B'), train_fixed_mask=None, train_moving_data=PosixPath('/media/monib/ext1/work2022/Base_Dataset/test/input/train/example_A'), train_moving_mask=None, use_mask=False, use_patch=False, val_fixed_data=PosixPath('/media/monib/ext1/work2022/Base_Dataset/test/input/val/example_B'), val_fixed_mask=None, val_moving_data=PosixPath('/media/monib/ext1/work2022/Base_Dataset/test/input/val/example_A'), val_moving_mask=None)
+INFO:root:DataParallel(
+  (module): BuildModel(
+    (VoxelMorph): cvpr2018_net(
+      (unet_model): Unet(
+        (encoder): ModuleList(
+          (0): ConvBlock(
+            (Conv): Conv3d(2, 32, kernel_size=(3, 3, 3), stride=(2, 2, 2), padding=(1, 1, 1))
+            (Norm): InstanceNorm3d(32, eps=1e-05, momentum=0.1, affine=False, track_running_stats=False)
+            (Activation): LeakyReLU(negative_slope=0.2)
+          )
+          (1): ConvBlock(
+            (Conv): Conv3d(32, 32, kernel_size=(3, 3, 3), stride=(2, 2, 2), padding=(1, 1, 1))
+            (Norm): InstanceNorm3d(32, eps=1e-05, momentum=0.1, affine=False, track_running_stats=False)
+            (Activation): LeakyReLU(negative_slope=0.2)
+          )
+          (2): ConvBlock(
+            (Conv): Conv3d(32, 32, kernel_size=(3, 3, 3), stride=(2, 2, 2), padding=(1, 1, 1))
+            (Norm): InstanceNorm3d(32, eps=1e-05, momentum=0.1, affine=False, track_running_stats=False)
+            (Activation): LeakyReLU(negative_slope=0.2)
+          )
+          (3): ConvBlock(
+            (Conv): Conv3d(32, 8, kernel_size=(3, 3, 3), stride=(2, 2, 2), padding=(1, 1, 1))
+            (Norm): InstanceNorm3d(8, eps=1e-05, momentum=0.1, affine=False, track_running_stats=False)
+            (Activation): LeakyReLU(negative_slope=0.2)
+          )
+        )
+        (decoder): ModuleList(
+          (0): ConvBlock(
+            (Conv): Conv3d(8, 32, kernel_size=(3, 3, 3), stride=(1, 1, 1), padding=(1, 1, 1))
+            (Norm): InstanceNorm3d(32, eps=1e-05, momentum=0.1, affine=False, track_running_stats=False)
+            (Activation): LeakyReLU(negative_slope=0.2)
+          )
+          (1): ConvBlock(
+            (Conv): Conv3d(64, 32, kernel_size=(3, 3, 3), stride=(1, 1, 1), padding=(1, 1, 1))
+            (Norm): InstanceNorm3d(32, eps=1e-05, momentum=0.1, affine=False, track_running_stats=False)
+            (Activation): LeakyReLU(negative_slope=0.2)
+          )
+          (2): ConvBlock(
+            (Conv): Conv3d(64, 32, kernel_size=(3, 3, 3), stride=(1, 1, 1), padding=(1, 1, 1))
+            (Norm): InstanceNorm3d(32, eps=1e-05, momentum=0.1, affine=False, track_running_stats=False)
+            (Activation): LeakyReLU(negative_slope=0.2)
+          )
+          (3): ConvBlock(
+            (Conv): Conv3d(64, 32, kernel_size=(3, 3, 3), stride=(1, 1, 1), padding=(1, 1, 1))
+            (Norm): InstanceNorm3d(32, eps=1e-05, momentum=0.1, affine=False, track_running_stats=False)
+            (Activation): LeakyReLU(negative_slope=0.2)
+          )
+          (4): ConvBlock(
+            (Conv): Conv3d(32, 16, kernel_size=(3, 3, 3), stride=(1, 1, 1), padding=(1, 1, 1))
+            (Norm): InstanceNorm3d(16, eps=1e-05, momentum=0.1, affine=False, track_running_stats=False)
+            (Activation): LeakyReLU(negative_slope=0.2)
+          )
+          (5): ConvBlock(
+            (Conv): Conv3d(18, 8, kernel_size=(3, 3, 3), stride=(1, 1, 1), padding=(1, 1, 1))
+            (Norm): InstanceNorm3d(8, eps=1e-05, momentum=0.1, affine=False, track_running_stats=False)
+            (Activation): LeakyReLU(negative_slope=0.2)
+          )
+        )
+        (upsample): Upsample(scale_factor=2.0, mode=nearest)
+      )
+      (flow): Conv3d(8, 3, kernel_size=(3, 3, 3), stride=(1, 1, 1), padding=(1, 1, 1))
+    )
+  )
+)
+INFO:root:Epoch = [   0/40]
+INFO:root: Train -> Combined Loss = -0.519, Data Loss = -0.519123, Flow Loss = -0.000132247, Dice loss = nan
+INFO:root: Val -> Combined Loss = -0.314, Data Loss = -0.312, Flow Loss = -0.00174, Dice loss = nan
+INFO:root: Train duration =  63.248s, Val duration = 21.660s
+INFO:root:Epoch = [   1/40]
+INFO:root: Train -> Combined Loss = -0.523, Data Loss = -0.51314, Flow Loss = -0.00941333, Dice loss = nan
+INFO:root: Val -> Combined Loss = -0.32, Data Loss = -0.305, Flow Loss = -0.0142, Dice loss = nan
+INFO:root: Train duration =  62.392s, Val duration = 21.446s
+INFO:root:Epoch = [   2/40]
+INFO:root: Train -> Combined Loss = -0.535, Data Loss = -0.517483, Flow Loss = -0.0172694, Dice loss = nan
+INFO:root: Val -> Combined Loss = -0.323, Data Loss = -0.305, Flow Loss = -0.0187, Dice loss = nan
+INFO:root: Train duration =  62.231s, Val duration = 21.199s
+INFO:root:Epoch = [   3/40]
+INFO:root: Train -> Combined Loss = -0.354, Data Loss = -0.326503, Flow Loss = -0.0276199, Dice loss = nan
+INFO:root: Val -> Combined Loss = -0.331, Data Loss = -0.302, Flow Loss = -0.0282, Dice loss = nan
+INFO:root: Train duration =  62.571s, Val duration = 21.260s
+INFO:root:Epoch = [   4/40]
+INFO:root: Train -> Combined Loss = -0.546, Data Loss = -0.505251, Flow Loss = -0.0403945, Dice loss = nan
+INFO:root: Val -> Combined Loss = -0.346, Data Loss = -0.307, Flow Loss = -0.0386, Dice loss = nan
+INFO:root: Train duration =  62.087s, Val duration = 21.627s
+INFO:root:Epoch = [   5/40]
+INFO:root: Train -> Combined Loss = -0.535, Data Loss = -0.479389, Flow Loss = -0.0557266, Dice loss = nan
+INFO:root: Val -> Combined Loss = -0.36, Data Loss = -0.307, Flow Loss = -0.0531, Dice loss = nan
+INFO:root: Train duration =  62.632s, Val duration = 21.596s
+INFO:root:Epoch = [   6/40]
+INFO:root: Train -> Combined Loss = -0.58, Data Loss = -0.513062, Flow Loss = -0.0670824, Dice loss = nan
+INFO:root: Val -> Combined Loss = -0.376, Data Loss = -0.313, Flow Loss = -0.0629, Dice loss = nan
+INFO:root: Train duration =  62.592s, Val duration = 21.453s
+INFO:root:Epoch = [   7/40]
+INFO:root: Train -> Combined Loss = -0.568, Data Loss = -0.485173, Flow Loss = -0.0826899, Dice loss = nan
+INFO:root: Val -> Combined Loss = -0.38, Data Loss = -0.303, Flow Loss = -0.0772, Dice loss = nan
+INFO:root: Train duration =  62.438s, Val duration = 21.472s
+INFO:root:Epoch = [   8/40]
+INFO:root: Train -> Combined Loss = -0.602, Data Loss = -0.502915, Flow Loss = -0.0993904, Dice loss = nan
+INFO:root: Val -> Combined Loss = -0.398, Data Loss = -0.307, Flow Loss = -0.0904, Dice loss = nan
+INFO:root: Train duration =  62.224s, Val duration = 21.497s
+INFO:root:Epoch = [   9/40]
+INFO:root: Train -> Combined Loss = -0.603, Data Loss = -0.484296, Flow Loss = -0.118913, Dice loss = nan
+INFO:root: Val -> Combined Loss = -0.393, Data Loss = -0.295, Flow Loss = -0.0981, Dice loss = nan
+INFO:root: Train duration =  62.606s, Val duration = 21.267s
+INFO:root:Epoch = [  10/40]
+INFO:root: Train -> Combined Loss = -0.624, Data Loss = -0.484945, Flow Loss = -0.139483, Dice loss = nan
+INFO:root: Val -> Combined Loss = -0.419, Data Loss = -0.3, Flow Loss = -0.119, Dice loss = nan
+INFO:root: Train duration =  62.420s, Val duration = 21.255s
+INFO:root:Epoch = [  11/40]
+INFO:root: Train -> Combined Loss = -0.626, Data Loss = -0.466502, Flow Loss = -0.159291, Dice loss = nan
+INFO:root: Val -> Combined Loss = -0.449, Data Loss = -0.305, Flow Loss = -0.144, Dice loss = nan
+INFO:root: Train duration =  62.761s, Val duration = 21.736s
+INFO:root:Epoch = [  12/40]
+INFO:root: Train -> Combined Loss = -0.665, Data Loss = -0.485931, Flow Loss = -0.178796, Dice loss = nan
+INFO:root: Val -> Combined Loss = -0.391, Data Loss = -0.271, Flow Loss = -0.12, Dice loss = nan
+INFO:root: Train duration =  62.737s, Val duration = 21.644s
+INFO:root:Epoch = [  13/40]
+INFO:root: Train -> Combined Loss = -0.629, Data Loss = -0.457515, Flow Loss = -0.17129, Dice loss = nan
+INFO:root: Val -> Combined Loss = -0.436, Data Loss = -0.273, Flow Loss = -0.163, Dice loss = nan
+INFO:root: Train duration =  62.407s, Val duration = 21.718s
+INFO:root:Epoch = [  14/40]
+INFO:root: Train -> Combined Loss = -0.62, Data Loss = -0.424912, Flow Loss = -0.19519, Dice loss = nan
+INFO:root: Val -> Combined Loss = -0.452, Data Loss = -0.279, Flow Loss = -0.173, Dice loss = nan
+INFO:root: Train duration =  62.985s, Val duration = 21.760s
+INFO:root:Epoch = [  15/40]
+INFO:root: Train -> Combined Loss = -0.679, Data Loss = -0.464911, Flow Loss = -0.214279, Dice loss = nan
+INFO:root: Val -> Combined Loss = -0.449, Data Loss = -0.262, Flow Loss = -0.188, Dice loss = nan
+INFO:root: Train duration =  62.439s, Val duration = 21.480s
+INFO:root:Epoch = [  16/40]
+INFO:root: Train -> Combined Loss = -0.723, Data Loss = -0.483823, Flow Loss = -0.238973, Dice loss = nan
+INFO:root: Val -> Combined Loss = -0.488, Data Loss = -0.273, Flow Loss = -0.215, Dice loss = nan
+INFO:root: Train duration =  62.294s, Val duration = 21.392s
+INFO:root:Epoch = [  17/40]
+INFO:root: Train -> Combined Loss = -0.764, Data Loss = -0.499843, Flow Loss = -0.264585, Dice loss = nan
+INFO:root: Val -> Combined Loss = -0.532, Data Loss = -0.292, Flow Loss = -0.24, Dice loss = nan
+INFO:root: Train duration =  62.141s, Val duration = 21.452s
+INFO:root:Epoch = [  18/40]
+INFO:root: Train -> Combined Loss = -0.782, Data Loss = -0.49009, Flow Loss = -0.291904, Dice loss = nan
+INFO:root: Val -> Combined Loss = -0.56, Data Loss = -0.296, Flow Loss = -0.264, Dice loss = nan
+INFO:root: Train duration =  62.464s, Val duration = 21.208s
+INFO:root:Epoch = [  19/40]
+INFO:root: Train -> Combined Loss = -0.79, Data Loss = -0.477154, Flow Loss = -0.313011, Dice loss = nan
+INFO:root: Val -> Combined Loss = -0.579, Data Loss = -0.3, Flow Loss = -0.279, Dice loss = nan
+INFO:root: Train duration =  62.353s, Val duration = 21.215s
+INFO:root:Epoch = [  20/40]
+INFO:root: Train -> Combined Loss = -0.828, Data Loss = -0.493302, Flow Loss = -0.334691, Dice loss = nan
+INFO:root: Val -> Combined Loss = -0.584, Data Loss = -0.284, Flow Loss = -0.3, Dice loss = nan
+INFO:root: Train duration =  62.723s, Val duration = 21.740s
+INFO:root:Epoch = [  21/40]
+INFO:root: Train -> Combined Loss = -0.838, Data Loss = -0.47754, Flow Loss = -0.360592, Dice loss = nan
+INFO:root: Val -> Combined Loss = -0.607, Data Loss = -0.295, Flow Loss = -0.312, Dice loss = nan
+INFO:root: Train duration =  62.551s, Val duration = 21.358s
+INFO:root:Epoch = [  22/40]
+INFO:root: Train -> Combined Loss = -0.853, Data Loss = -0.481322, Flow Loss = -0.371402, Dice loss = nan
+INFO:root: Val -> Combined Loss = -0.564, Data Loss = -0.236, Flow Loss = -0.328, Dice loss = nan
+INFO:root: Train duration =  62.621s, Val duration = 21.451s
+INFO:root:Epoch = [  23/40]
+INFO:root: Train -> Combined Loss = -0.799, Data Loss = -0.409661, Flow Loss = -0.389662, Dice loss = nan
+INFO:root: Val -> Combined Loss = -0.588, Data Loss = -0.238, Flow Loss = -0.35, Dice loss = nan
+INFO:root: Train duration =  62.817s, Val duration = 21.230s
+INFO:root:Epoch = [  24/40]
+INFO:root: Train -> Combined Loss = -0.848, Data Loss = -0.430954, Flow Loss = -0.417379, Dice loss = nan
+INFO:root: Val -> Combined Loss = -0.658, Data Loss = -0.282, Flow Loss = -0.376, Dice loss = nan
+INFO:root: Train duration =  62.496s, Val duration = 21.466s
+INFO:root:Epoch = [  25/40]
+INFO:root: Train -> Combined Loss = -0.922, Data Loss = -0.474159, Flow Loss = -0.447967, Dice loss = nan
+INFO:root: Val -> Combined Loss = -0.687, Data Loss = -0.289, Flow Loss = -0.398, Dice loss = nan
+INFO:root: Train duration =  62.476s, Val duration = 24.181s
+INFO:root:Epoch = [  26/40]
+INFO:root: Train -> Combined Loss = -0.94, Data Loss = -0.470032, Flow Loss = -0.470273, Dice loss = nan
+INFO:root: Val -> Combined Loss = -0.698, Data Loss = -0.28, Flow Loss = -0.418, Dice loss = nan
+INFO:root: Train duration =  65.593s, Val duration = 22.407s
+INFO:root:Epoch = [  27/40]
+INFO:root: Train -> Combined Loss = -0.927, Data Loss = -0.433565, Flow Loss = -0.493068, Dice loss = nan
+INFO:root: Val -> Combined Loss = -0.702, Data Loss = -0.27, Flow Loss = -0.432, Dice loss = nan
+INFO:root: Train duration =  65.715s, Val duration = 22.465s
+INFO:root:Namespace(Tensor=<class 'torch.cuda.FloatTensor'>, accel_method='gpu', batch_size=1, checkpoint=None, data_loss='ncc', data_parallel=True, data_type='dicom', debug=0, dec_nf=[32, 32, 32, 32, 16, 8], device='cuda', dim=3, drop_prob=0.0, enc_nf=[32, 32, 32, 8], epochs=40, exp_name=PosixPath('ckp_test'), export_dir=PosixPath('/media/monib/ext1/work2022/voxelmorph_nets/voxelmorph_v02/ckp_test'), flow_save_path=PosixPath('/media/monib/ext1/work2022/Base_Dataset/test/output/flows'), full_size=True, interpn='nearest', log_file_name='log_test_mse', lr=0.001, moved_mask_save_path=None, moved_save_path=PosixPath('/media/monib/ext1/work2022/Base_Dataset/test/output/moved'), norm_method='div10000', op_sys='linux', optim='Adam', patch_size=256, reg_param=1.0, report_interval=10, report_interval_epoch=5000, resume=False, save_npy_flow=0, seed=42, sf=1.0, switch_residualpath=0, train_fixed_data=PosixPath('/media/monib/ext1/work2022/Base_Dataset/test/input/train/example_B'), train_fixed_mask=None, train_moving_data=PosixPath('/media/monib/ext1/work2022/Base_Dataset/test/input/train/example_A'), train_moving_mask=None, use_mask=False, use_patch=False, val_fixed_data=PosixPath('/media/monib/ext1/work2022/Base_Dataset/test/input/val/example_B'), val_fixed_mask=None, val_moving_data=PosixPath('/media/monib/ext1/work2022/Base_Dataset/test/input/val/example_A'), val_moving_mask=None)
+INFO:root:DataParallel(
+  (module): BuildModel(
+    (VoxelMorph): cvpr2018_net(
+      (unet_model): Unet(
+        (encoder): ModuleList(
+          (0): ConvBlock(
+            (Conv): Conv3d(2, 32, kernel_size=(3, 3, 3), stride=(2, 2, 2), padding=(1, 1, 1))
+            (Norm): InstanceNorm3d(32, eps=1e-05, momentum=0.1, affine=False, track_running_stats=False)
+            (Activation): LeakyReLU(negative_slope=0.2)
+          )
+          (1): ConvBlock(
+            (Conv): Conv3d(32, 32, kernel_size=(3, 3, 3), stride=(2, 2, 2), padding=(1, 1, 1))
+            (Norm): InstanceNorm3d(32, eps=1e-05, momentum=0.1, affine=False, track_running_stats=False)
+            (Activation): LeakyReLU(negative_slope=0.2)
+          )
+          (2): ConvBlock(
+            (Conv): Conv3d(32, 32, kernel_size=(3, 3, 3), stride=(2, 2, 2), padding=(1, 1, 1))
+            (Norm): InstanceNorm3d(32, eps=1e-05, momentum=0.1, affine=False, track_running_stats=False)
+            (Activation): LeakyReLU(negative_slope=0.2)
+          )
+          (3): ConvBlock(
+            (Conv): Conv3d(32, 8, kernel_size=(3, 3, 3), stride=(2, 2, 2), padding=(1, 1, 1))
+            (Norm): InstanceNorm3d(8, eps=1e-05, momentum=0.1, affine=False, track_running_stats=False)
+            (Activation): LeakyReLU(negative_slope=0.2)
+          )
+        )
+        (decoder): ModuleList(
+          (0): ConvBlock(
+            (Conv): Conv3d(8, 32, kernel_size=(3, 3, 3), stride=(1, 1, 1), padding=(1, 1, 1))
+            (Norm): InstanceNorm3d(32, eps=1e-05, momentum=0.1, affine=False, track_running_stats=False)
+            (Activation): LeakyReLU(negative_slope=0.2)
+          )
+          (1): ConvBlock(
+            (Conv): Conv3d(64, 32, kernel_size=(3, 3, 3), stride=(1, 1, 1), padding=(1, 1, 1))
+            (Norm): InstanceNorm3d(32, eps=1e-05, momentum=0.1, affine=False, track_running_stats=False)
+            (Activation): LeakyReLU(negative_slope=0.2)
+          )
+          (2): ConvBlock(
+            (Conv): Conv3d(64, 32, kernel_size=(3, 3, 3), stride=(1, 1, 1), padding=(1, 1, 1))
+            (Norm): InstanceNorm3d(32, eps=1e-05, momentum=0.1, affine=False, track_running_stats=False)
+            (Activation): LeakyReLU(negative_slope=0.2)
+          )
+          (3): ConvBlock(
+            (Conv): Conv3d(64, 32, kernel_size=(3, 3, 3), stride=(1, 1, 1), padding=(1, 1, 1))
+            (Norm): InstanceNorm3d(32, eps=1e-05, momentum=0.1, affine=False, track_running_stats=False)
+            (Activation): LeakyReLU(negative_slope=0.2)
+          )
+          (4): ConvBlock(
+            (Conv): Conv3d(32, 16, kernel_size=(3, 3, 3), stride=(1, 1, 1), padding=(1, 1, 1))
+            (Norm): InstanceNorm3d(16, eps=1e-05, momentum=0.1, affine=False, track_running_stats=False)
+            (Activation): LeakyReLU(negative_slope=0.2)
+          )
+          (5): ConvBlock(
+            (Conv): Conv3d(18, 8, kernel_size=(3, 3, 3), stride=(1, 1, 1), padding=(1, 1, 1))
+            (Norm): InstanceNorm3d(8, eps=1e-05, momentum=0.1, affine=False, track_running_stats=False)
+            (Activation): LeakyReLU(negative_slope=0.2)
+          )
+        )
+        (upsample): Upsample(scale_factor=2.0, mode=nearest)
+      )
+      (flow): Conv3d(8, 3, kernel_size=(3, 3, 3), stride=(1, 1, 1), padding=(1, 1, 1))
+    )
+  )
+)
+INFO:root:Namespace(Tensor=<class 'torch.cuda.FloatTensor'>, accel_method='gpu', batch_size=1, checkpoint=None, data_loss='ncc', data_parallel=True, data_type='dicom', debug=0, dec_nf=[32, 32, 32, 32, 16, 8], device='cuda', dim=3, drop_prob=0.0, enc_nf=[32, 32, 32, 8], epochs=40, exp_name=PosixPath('ckp_test'), export_dir=PosixPath('/media/monib/ext1/work2022/voxelmorph_nets/voxelmorph_v02/ckp_test'), flow_save_path=PosixPath('/media/monib/ext1/work2022/Base_Dataset/test/output/flows'), full_size=True, interpn='nearest', log_file_name='log_test_mse', lr=0.001, moved_mask_save_path=None, moved_save_path=PosixPath('/media/monib/ext1/work2022/Base_Dataset/test/output/moved'), norm_method='div10000', op_sys='linux', optim='Adam', patch_size=256, reg_param=1.0, report_interval=10, report_interval_epoch=5000, resume=False, save_npy_flow=0, seed=42, sf=1.0, switch_residualpath=0, train_fixed_data=PosixPath('/media/monib/ext1/work2022/Base_Dataset/test/input/train/example_B'), train_fixed_mask=None, train_moving_data=PosixPath('/media/monib/ext1/work2022/Base_Dataset/test/input/train/example_A'), train_moving_mask=None, use_mask=False, use_patch=False, val_fixed_data=PosixPath('/media/monib/ext1/work2022/Base_Dataset/test/input/val/example_B'), val_fixed_mask=None, val_moving_data=PosixPath('/media/monib/ext1/work2022/Base_Dataset/test/input/val/example_A'), val_moving_mask=None)
+INFO:root:DataParallel(
+  (module): BuildModel(
+    (VoxelMorph): cvpr2018_net(
+      (unet_model): Unet(
+        (encoder): ModuleList(
+          (0): ConvBlock(
+            (Conv): Conv3d(2, 32, kernel_size=(3, 3, 3), stride=(2, 2, 2), padding=(1, 1, 1))
+            (Norm): InstanceNorm3d(32, eps=1e-05, momentum=0.1, affine=False, track_running_stats=False)
+            (Activation): LeakyReLU(negative_slope=0.2)
+          )
+          (1): ConvBlock(
+            (Conv): Conv3d(32, 32, kernel_size=(3, 3, 3), stride=(2, 2, 2), padding=(1, 1, 1))
+            (Norm): InstanceNorm3d(32, eps=1e-05, momentum=0.1, affine=False, track_running_stats=False)
+            (Activation): LeakyReLU(negative_slope=0.2)
+          )
+          (2): ConvBlock(
+            (Conv): Conv3d(32, 32, kernel_size=(3, 3, 3), stride=(2, 2, 2), padding=(1, 1, 1))
+            (Norm): InstanceNorm3d(32, eps=1e-05, momentum=0.1, affine=False, track_running_stats=False)
+            (Activation): LeakyReLU(negative_slope=0.2)
+          )
+          (3): ConvBlock(
+            (Conv): Conv3d(32, 8, kernel_size=(3, 3, 3), stride=(2, 2, 2), padding=(1, 1, 1))
+            (Norm): InstanceNorm3d(8, eps=1e-05, momentum=0.1, affine=False, track_running_stats=False)
+            (Activation): LeakyReLU(negative_slope=0.2)
+          )
+        )
+        (decoder): ModuleList(
+          (0): ConvBlock(
+            (Conv): Conv3d(8, 32, kernel_size=(3, 3, 3), stride=(1, 1, 1), padding=(1, 1, 1))
+            (Norm): InstanceNorm3d(32, eps=1e-05, momentum=0.1, affine=False, track_running_stats=False)
+            (Activation): LeakyReLU(negative_slope=0.2)
+          )
+          (1): ConvBlock(
+            (Conv): Conv3d(64, 32, kernel_size=(3, 3, 3), stride=(1, 1, 1), padding=(1, 1, 1))
+            (Norm): InstanceNorm3d(32, eps=1e-05, momentum=0.1, affine=False, track_running_stats=False)
+            (Activation): LeakyReLU(negative_slope=0.2)
+          )
+          (2): ConvBlock(
+            (Conv): Conv3d(64, 32, kernel_size=(3, 3, 3), stride=(1, 1, 1), padding=(1, 1, 1))
+            (Norm): InstanceNorm3d(32, eps=1e-05, momentum=0.1, affine=False, track_running_stats=False)
+            (Activation): LeakyReLU(negative_slope=0.2)
+          )
+          (3): ConvBlock(
+            (Conv): Conv3d(64, 32, kernel_size=(3, 3, 3), stride=(1, 1, 1), padding=(1, 1, 1))
+            (Norm): InstanceNorm3d(32, eps=1e-05, momentum=0.1, affine=False, track_running_stats=False)
+            (Activation): LeakyReLU(negative_slope=0.2)
+          )
+          (4): ConvBlock(
+            (Conv): Conv3d(32, 16, kernel_size=(3, 3, 3), stride=(1, 1, 1), padding=(1, 1, 1))
+            (Norm): InstanceNorm3d(16, eps=1e-05, momentum=0.1, affine=False, track_running_stats=False)
+            (Activation): LeakyReLU(negative_slope=0.2)
+          )
+          (5): ConvBlock(
+            (Conv): Conv3d(18, 8, kernel_size=(3, 3, 3), stride=(1, 1, 1), padding=(1, 1, 1))
+            (Norm): InstanceNorm3d(8, eps=1e-05, momentum=0.1, affine=False, track_running_stats=False)
+            (Activation): LeakyReLU(negative_slope=0.2)
+          )
+        )
+        (upsample): Upsample(scale_factor=2.0, mode=nearest)
+      )
+      (flow): Conv3d(8, 3, kernel_size=(3, 3, 3), stride=(1, 1, 1), padding=(1, 1, 1))
+    )
+  )
+)
+INFO:root:Epoch = [   0/40]
+INFO:root: Train -> Combined Loss = -0.434, Data Loss = -0.434914, Flow Loss = 0.00110347, Dice loss = nan
+INFO:root: Val -> Combined Loss = -0.533, Data Loss = -0.532, Flow Loss = -0.000932, Dice loss = nan
+INFO:root: Train duration =  62.371s, Val duration = 21.117s
+INFO:root:Epoch = [   1/40]
+INFO:root: Train -> Combined Loss = -0.429, Data Loss = -0.426617, Flow Loss = -0.00237125, Dice loss = nan
+INFO:root: Val -> Combined Loss = -0.536, Data Loss = -0.535, Flow Loss = -0.000748, Dice loss = nan
+INFO:root: Train duration =  61.670s, Val duration = 20.825s
+INFO:root:Epoch = [   2/40]
+INFO:root: Train -> Combined Loss = -0.438, Data Loss = -0.430181, Flow Loss = -0.00815946, Dice loss = nan
+INFO:root: Val -> Combined Loss = -0.545, Data Loss = -0.545, Flow Loss = -0.000257, Dice loss = nan
+INFO:root: Train duration =  61.515s, Val duration = 20.692s
+INFO:root:Epoch = [   3/40]
+INFO:root: Train -> Combined Loss = -0.443, Data Loss = -0.425169, Flow Loss = -0.0175523, Dice loss = nan
+INFO:root: Val -> Combined Loss = -0.551, Data Loss = -0.537, Flow Loss = -0.0145, Dice loss = nan
+INFO:root: Train duration =  61.988s, Val duration = 20.710s
+INFO:root:Epoch = [   4/40]
+INFO:root: Train -> Combined Loss = -0.453, Data Loss = -0.421813, Flow Loss = -0.0313169, Dice loss = nan
+INFO:root: Val -> Combined Loss = -0.538, Data Loss = -0.515, Flow Loss = -0.023, Dice loss = nan
+INFO:root: Train duration =  61.579s, Val duration = 21.170s
+INFO:root:Epoch = [   5/40]
+INFO:root: Train -> Combined Loss = -0.423, Data Loss = -0.379327, Flow Loss = -0.0437773, Dice loss = nan
+INFO:root: Val -> Combined Loss = -0.534, Data Loss = -0.493, Flow Loss = -0.0413, Dice loss = nan
+INFO:root: Train duration =  61.843s, Val duration = 21.197s
+INFO:root:Epoch = [   6/40]
+INFO:root: Train -> Combined Loss = -0.461, Data Loss = -0.40708, Flow Loss = -0.0539473, Dice loss = nan
+INFO:root: Val -> Combined Loss = -0.554, Data Loss = -0.505, Flow Loss = -0.0491, Dice loss = nan
+INFO:root: Train duration =  62.017s, Val duration = 20.879s
+INFO:root:Epoch = [   7/40]
+INFO:root: Train -> Combined Loss = -0.481, Data Loss = -0.411536, Flow Loss = -0.0692043, Dice loss = nan
+INFO:root: Val -> Combined Loss = -0.54, Data Loss = -0.476, Flow Loss = -0.0635, Dice loss = nan
+INFO:root: Train duration =  62.226s, Val duration = 21.146s
+INFO:root:Epoch = [   8/40]
+INFO:root: Train -> Combined Loss = -0.503, Data Loss = -0.413383, Flow Loss = -0.0898255, Dice loss = nan
+INFO:root: Val -> Combined Loss = -0.561, Data Loss = -0.482, Flow Loss = -0.0795, Dice loss = nan
+INFO:root: Train duration =  62.605s, Val duration = 21.285s
+INFO:root:Epoch = [   9/40]
+INFO:root: Train -> Combined Loss = -0.52, Data Loss = -0.412878, Flow Loss = -0.106761, Dice loss = nan
+INFO:root: Val -> Combined Loss = -0.553, Data Loss = -0.473, Flow Loss = -0.0802, Dice loss = nan
+INFO:root: Train duration =  62.214s, Val duration = 20.890s
+INFO:root:Epoch = [  10/40]
+INFO:root: Train -> Combined Loss = -0.506, Data Loss = -0.386896, Flow Loss = -0.118866, Dice loss = nan
+INFO:root: Val -> Combined Loss = -0.576, Data Loss = -0.468, Flow Loss = -0.108, Dice loss = nan
+INFO:root: Train duration =  62.060s, Val duration = 20.691s
+INFO:root:Epoch = [  11/40]
+INFO:root: Train -> Combined Loss = -0.537, Data Loss = -0.398036, Flow Loss = -0.1392, Dice loss = nan
+INFO:root: Val -> Combined Loss = -0.618, Data Loss = -0.49, Flow Loss = -0.128, Dice loss = nan
+INFO:root: Train duration =  62.452s, Val duration = 20.707s
+INFO:root:Epoch = [  12/40]
+INFO:root: Train -> Combined Loss = -0.573, Data Loss = -0.409143, Flow Loss = -0.163844, Dice loss = nan
+INFO:root: Val -> Combined Loss = -0.633, Data Loss = -0.488, Flow Loss = -0.146, Dice loss = nan
+INFO:root: Train duration =  61.804s, Val duration = 20.878s
+INFO:root:Epoch = [  13/40]
+INFO:root: Train -> Combined Loss = -0.595, Data Loss = -0.410039, Flow Loss = -0.185447, Dice loss = nan
+INFO:root: Val -> Combined Loss = -0.656, Data Loss = -0.492, Flow Loss = -0.165, Dice loss = nan
+INFO:root: Train duration =  61.654s, Val duration = 21.088s
+INFO:root:Epoch = [  14/40]
+INFO:root: Train -> Combined Loss = -0.617, Data Loss = -0.411914, Flow Loss = -0.205011, Dice loss = nan
+INFO:root: Val -> Combined Loss = -0.669, Data Loss = -0.49, Flow Loss = -0.179, Dice loss = nan
+INFO:root: Train duration =  61.966s, Val duration = 21.105s
+INFO:root:Epoch = [  15/40]
+INFO:root: Train -> Combined Loss = -0.636, Data Loss = -0.410481, Flow Loss = -0.225925, Dice loss = nan
+INFO:root: Val -> Combined Loss = -0.682, Data Loss = -0.484, Flow Loss = -0.198, Dice loss = nan
+INFO:root: Train duration =  62.244s, Val duration = 20.931s
+INFO:root:Epoch = [  16/40]
+INFO:root: Train -> Combined Loss = -0.655, Data Loss = -0.407884, Flow Loss = -0.246865, Dice loss = nan
+INFO:root: Val -> Combined Loss = -0.695, Data Loss = -0.479, Flow Loss = -0.216, Dice loss = nan
+INFO:root: Train duration =  62.028s, Val duration = 21.003s
+INFO:root:Epoch = [  17/40]
+INFO:root: Train -> Combined Loss = -0.671, Data Loss = -0.405543, Flow Loss = -0.265227, Dice loss = nan
+INFO:root: Val -> Combined Loss = -0.713, Data Loss = -0.48, Flow Loss = -0.233, Dice loss = nan
+INFO:root: Train duration =  61.744s, Val duration = 20.980s
+INFO:root:Epoch = [  18/40]
+INFO:root: Train -> Combined Loss = -0.699, Data Loss = -0.40811, Flow Loss = -0.290426, Dice loss = nan
+INFO:root: Val -> Combined Loss = -0.731, Data Loss = -0.481, Flow Loss = -0.25, Dice loss = nan
+INFO:root: Train duration =  61.855s, Val duration = 20.683s
+INFO:root:Epoch = [  19/40]
+INFO:root: Train -> Combined Loss = -0.696, Data Loss = -0.389891, Flow Loss = -0.305828, Dice loss = nan
+INFO:root: Val -> Combined Loss = -0.696, Data Loss = -0.427, Flow Loss = -0.269, Dice loss = nan
+INFO:root: Train duration =  61.621s, Val duration = 20.813s
+INFO:root:Epoch = [  20/40]
+INFO:root: Train -> Combined Loss = -0.622, Data Loss = -0.312837, Flow Loss = -0.309401, Dice loss = nan
+INFO:root: Val -> Combined Loss = -0.6, Data Loss = -0.342, Flow Loss = -0.258, Dice loss = nan
+INFO:root: Train duration =  62.316s, Val duration = 20.726s
+INFO:root:Epoch = [  21/40]
+INFO:root: Train -> Combined Loss = -0.636, Data Loss = -0.310809, Flow Loss = -0.325095, Dice loss = nan
+INFO:root: Val -> Combined Loss = -0.675, Data Loss = -0.395, Flow Loss = -0.28, Dice loss = nan
+INFO:root: Train duration =  62.240s, Val duration = 21.133s
+INFO:root:Epoch = [  22/40]
+INFO:root: Train -> Combined Loss = -0.698, Data Loss = -0.337247, Flow Loss = -0.360916, Dice loss = nan
+INFO:root: Val -> Combined Loss = -0.722, Data Loss = -0.413, Flow Loss = -0.309, Dice loss = nan
+INFO:root: Train duration =  62.237s, Val duration = 21.164s
+INFO:root:Epoch = [  23/40]
+INFO:root: Train -> Combined Loss = -0.776, Data Loss = -0.380276, Flow Loss = -0.396014, Dice loss = nan
+INFO:root: Val -> Combined Loss = -0.834, Data Loss = -0.488, Flow Loss = -0.345, Dice loss = nan
+INFO:root: Train duration =  62.134s, Val duration = 21.161s
+INFO:root:Namespace(Tensor=<class 'torch.cuda.FloatTensor'>, accel_method='gpu', batch_size=1, checkpoint=None, data_loss='ncc', data_parallel=True, data_type='dicom', debug=0, dec_nf=[32, 32, 32, 32, 16, 8], device='cuda', dim=3, drop_prob=0.0, enc_nf=[32, 32, 32, 8], epochs=40, exp_name=PosixPath('ckp_test'), export_dir=PosixPath('/media/monib/ext1/work2022/voxelmorph_nets/voxelmorph_v02/ckp_test'), flow_save_path=PosixPath('/media/monib/ext1/work2022/Base_Dataset/test/output/flows'), full_size=True, interpn='nearest', log_file_name='log_test_mse', lr=0.001, moved_mask_save_path=None, moved_save_path=PosixPath('/media/monib/ext1/work2022/Base_Dataset/test/output/moved'), norm_method='div10000', op_sys='linux', optim='Adam', patch_size=256, reg_param=1.0, report_interval=10, report_interval_epoch=5000, resume=False, save_npy_flow=0, seed=42, sf=1.0, switch_residualpath=0, train_fixed_data=PosixPath('/media/monib/ext1/work2022/Base_Dataset/test/input/train/example_B'), train_fixed_mask=None, train_moving_data=PosixPath('/media/monib/ext1/work2022/Base_Dataset/test/input/train/example_A'), train_moving_mask=None, use_mask=False, use_patch=False, val_fixed_data=PosixPath('/media/monib/ext1/work2022/Base_Dataset/test/input/val/example_B'), val_fixed_mask=None, val_moving_data=PosixPath('/media/monib/ext1/work2022/Base_Dataset/test/input/val/example_A'), val_moving_mask=None)
+INFO:root:DataParallel(
+  (module): BuildModel(
+    (VoxelMorph): cvpr2018_net(
+      (unet_model): Unet(
+        (encoder): ModuleList(
+          (0): ConvBlock(
+            (Conv): Conv3d(2, 32, kernel_size=(3, 3, 3), stride=(2, 2, 2), padding=(1, 1, 1))
+            (Norm): InstanceNorm3d(32, eps=1e-05, momentum=0.1, affine=False, track_running_stats=False)
+            (Activation): LeakyReLU(negative_slope=0.2)
+          )
+          (1): ConvBlock(
+            (Conv): Conv3d(32, 32, kernel_size=(3, 3, 3), stride=(2, 2, 2), padding=(1, 1, 1))
+            (Norm): InstanceNorm3d(32, eps=1e-05, momentum=0.1, affine=False, track_running_stats=False)
+            (Activation): LeakyReLU(negative_slope=0.2)
+          )
+          (2): ConvBlock(
+            (Conv): Conv3d(32, 32, kernel_size=(3, 3, 3), stride=(2, 2, 2), padding=(1, 1, 1))
+            (Norm): InstanceNorm3d(32, eps=1e-05, momentum=0.1, affine=False, track_running_stats=False)
+            (Activation): LeakyReLU(negative_slope=0.2)
+          )
+          (3): ConvBlock(
+            (Conv): Conv3d(32, 8, kernel_size=(3, 3, 3), stride=(2, 2, 2), padding=(1, 1, 1))
+            (Norm): InstanceNorm3d(8, eps=1e-05, momentum=0.1, affine=False, track_running_stats=False)
+            (Activation): LeakyReLU(negative_slope=0.2)
+          )
+        )
+        (decoder): ModuleList(
+          (0): ConvBlock(
+            (Conv): Conv3d(8, 32, kernel_size=(3, 3, 3), stride=(1, 1, 1), padding=(1, 1, 1))
+            (Norm): InstanceNorm3d(32, eps=1e-05, momentum=0.1, affine=False, track_running_stats=False)
+            (Activation): LeakyReLU(negative_slope=0.2)
+          )
+          (1): ConvBlock(
+            (Conv): Conv3d(64, 32, kernel_size=(3, 3, 3), stride=(1, 1, 1), padding=(1, 1, 1))
+            (Norm): InstanceNorm3d(32, eps=1e-05, momentum=0.1, affine=False, track_running_stats=False)
+            (Activation): LeakyReLU(negative_slope=0.2)
+          )
+          (2): ConvBlock(
+            (Conv): Conv3d(64, 32, kernel_size=(3, 3, 3), stride=(1, 1, 1), padding=(1, 1, 1))
+            (Norm): InstanceNorm3d(32, eps=1e-05, momentum=0.1, affine=False, track_running_stats=False)
+            (Activation): LeakyReLU(negative_slope=0.2)
+          )
+          (3): ConvBlock(
+            (Conv): Conv3d(64, 32, kernel_size=(3, 3, 3), stride=(1, 1, 1), padding=(1, 1, 1))
+            (Norm): InstanceNorm3d(32, eps=1e-05, momentum=0.1, affine=False, track_running_stats=False)
+            (Activation): LeakyReLU(negative_slope=0.2)
+          )
+          (4): ConvBlock(
+            (Conv): Conv3d(32, 16, kernel_size=(3, 3, 3), stride=(1, 1, 1), padding=(1, 1, 1))
+            (Norm): InstanceNorm3d(16, eps=1e-05, momentum=0.1, affine=False, track_running_stats=False)
+            (Activation): LeakyReLU(negative_slope=0.2)
+          )
+          (5): ConvBlock(
+            (Conv): Conv3d(18, 8, kernel_size=(3, 3, 3), stride=(1, 1, 1), padding=(1, 1, 1))
+            (Norm): InstanceNorm3d(8, eps=1e-05, momentum=0.1, affine=False, track_running_stats=False)
+            (Activation): LeakyReLU(negative_slope=0.2)
+          )
+        )
+        (upsample): Upsample(scale_factor=2.0, mode=nearest)
+      )
+      (flow): Conv3d(8, 3, kernel_size=(3, 3, 3), stride=(1, 1, 1), padding=(1, 1, 1))
+    )
+  )
+)
+INFO:root:Namespace(Tensor=<class 'torch.cuda.FloatTensor'>, accel_method='gpu', batch_size=1, checkpoint=None, data_loss='ncc', data_parallel=True, data_type='dicom', debug=0, dec_nf=[32, 32, 32, 32, 16, 8], device='cuda', dim=3, drop_prob=0.0, enc_nf=[32, 32, 32, 8], epochs=40, exp_name=PosixPath('ckp_test'), export_dir=PosixPath('/media/monib/ext1/work2022/voxelmorph_nets/voxelmorph_v02/ckp_test'), flow_save_path=PosixPath('/media/monib/ext1/work2022/Base_Dataset/test/output/flows'), full_size=True, interpn='nearest', log_file_name='log_test_mse', lr=0.001, moved_mask_save_path=None, moved_save_path=PosixPath('/media/monib/ext1/work2022/Base_Dataset/test/output/moved'), norm_method='div10000', op_sys='linux', optim='Adam', patch_size=256, reg_param=1.0, report_interval=10, report_interval_epoch=5000, resume=False, save_npy_flow=0, seed=42, sf=1.0, switch_residualpath=0, train_fixed_data=PosixPath('/media/monib/ext1/work2022/Base_Dataset/test/input/train/example_B'), train_fixed_mask=None, train_moving_data=PosixPath('/media/monib/ext1/work2022/Base_Dataset/test/input/train/example_A'), train_moving_mask=None, use_mask=False, use_patch=False, val_fixed_data=PosixPath('/media/monib/ext1/work2022/Base_Dataset/test/input/val/example_B'), val_fixed_mask=None, val_moving_data=PosixPath('/media/monib/ext1/work2022/Base_Dataset/test/input/val/example_A'), val_moving_mask=None)
+INFO:root:DataParallel(
+  (module): BuildModel(
+    (VoxelMorph): cvpr2018_net(
+      (unet_model): Unet(
+        (encoder): ModuleList(
+          (0): ConvBlock(
+            (Conv): Conv3d(2, 32, kernel_size=(3, 3, 3), stride=(2, 2, 2), padding=(1, 1, 1))
+            (Norm): InstanceNorm3d(32, eps=1e-05, momentum=0.1, affine=False, track_running_stats=False)
+            (Activation): LeakyReLU(negative_slope=0.2)
+          )
+          (1): ConvBlock(
+            (Conv): Conv3d(32, 32, kernel_size=(3, 3, 3), stride=(2, 2, 2), padding=(1, 1, 1))
+            (Norm): InstanceNorm3d(32, eps=1e-05, momentum=0.1, affine=False, track_running_stats=False)
+            (Activation): LeakyReLU(negative_slope=0.2)
+          )
+          (2): ConvBlock(
+            (Conv): Conv3d(32, 32, kernel_size=(3, 3, 3), stride=(2, 2, 2), padding=(1, 1, 1))
+            (Norm): InstanceNorm3d(32, eps=1e-05, momentum=0.1, affine=False, track_running_stats=False)
+            (Activation): LeakyReLU(negative_slope=0.2)
+          )
+          (3): ConvBlock(
+            (Conv): Conv3d(32, 8, kernel_size=(3, 3, 3), stride=(2, 2, 2), padding=(1, 1, 1))
+            (Norm): InstanceNorm3d(8, eps=1e-05, momentum=0.1, affine=False, track_running_stats=False)
+            (Activation): LeakyReLU(negative_slope=0.2)
+          )
+        )
+        (decoder): ModuleList(
+          (0): ConvBlock(
+            (Conv): Conv3d(8, 32, kernel_size=(3, 3, 3), stride=(1, 1, 1), padding=(1, 1, 1))
+            (Norm): InstanceNorm3d(32, eps=1e-05, momentum=0.1, affine=False, track_running_stats=False)
+            (Activation): LeakyReLU(negative_slope=0.2)
+          )
+          (1): ConvBlock(
+            (Conv): Conv3d(64, 32, kernel_size=(3, 3, 3), stride=(1, 1, 1), padding=(1, 1, 1))
+            (Norm): InstanceNorm3d(32, eps=1e-05, momentum=0.1, affine=False, track_running_stats=False)
+            (Activation): LeakyReLU(negative_slope=0.2)
+          )
+          (2): ConvBlock(
+            (Conv): Conv3d(64, 32, kernel_size=(3, 3, 3), stride=(1, 1, 1), padding=(1, 1, 1))
+            (Norm): InstanceNorm3d(32, eps=1e-05, momentum=0.1, affine=False, track_running_stats=False)
+            (Activation): LeakyReLU(negative_slope=0.2)
+          )
+          (3): ConvBlock(
+            (Conv): Conv3d(64, 32, kernel_size=(3, 3, 3), stride=(1, 1, 1), padding=(1, 1, 1))
+            (Norm): InstanceNorm3d(32, eps=1e-05, momentum=0.1, affine=False, track_running_stats=False)
+            (Activation): LeakyReLU(negative_slope=0.2)
+          )
+          (4): ConvBlock(
+            (Conv): Conv3d(32, 16, kernel_size=(3, 3, 3), stride=(1, 1, 1), padding=(1, 1, 1))
+            (Norm): InstanceNorm3d(16, eps=1e-05, momentum=0.1, affine=False, track_running_stats=False)
+            (Activation): LeakyReLU(negative_slope=0.2)
+          )
+          (5): ConvBlock(
+            (Conv): Conv3d(18, 8, kernel_size=(3, 3, 3), stride=(1, 1, 1), padding=(1, 1, 1))
+            (Norm): InstanceNorm3d(8, eps=1e-05, momentum=0.1, affine=False, track_running_stats=False)
+            (Activation): LeakyReLU(negative_slope=0.2)
+          )
+        )
+        (upsample): Upsample(scale_factor=2.0, mode=nearest)
+      )
+      (flow): Conv3d(8, 3, kernel_size=(3, 3, 3), stride=(1, 1, 1), padding=(1, 1, 1))
+    )
+  )
+)
+INFO:root:Epoch = [   0/40]
+INFO:root: Train -> Combined Loss = -0.429, Data Loss = -0.429584, Flow Loss = 0.00105474, Dice loss = nan
+INFO:root: Val -> Combined Loss = -0.588, Data Loss = -0.588, Flow Loss = -0.000505, Dice loss = nan
+INFO:root: Train duration =  62.027s, Val duration = 20.976s
+INFO:root:Epoch = [   1/40]
+INFO:root: Train -> Combined Loss = -0.426, Data Loss = -0.423307, Flow Loss = -0.00246104, Dice loss = nan
+INFO:root: Val -> Combined Loss = -0.569, Data Loss = -0.565, Flow Loss = -0.00406, Dice loss = nan
+INFO:root: Train duration =  61.476s, Val duration = 20.712s
+INFO:root:Epoch = [   2/40]
+INFO:root: Train -> Combined Loss = -0.498, Data Loss = -0.48665, Flow Loss = -0.0109515, Dice loss = nan
+INFO:root: Val -> Combined Loss = -0.594, Data Loss = -0.58, Flow Loss = -0.0135, Dice loss = nan
+INFO:root: Train duration =  61.290s, Val duration = 20.752s
+INFO:root:Epoch = [   3/40]
+INFO:root: Train -> Combined Loss = -0.417, Data Loss = -0.404027, Flow Loss = -0.0129582, Dice loss = nan
+INFO:root: Val -> Combined Loss = -0.606, Data Loss = -0.592, Flow Loss = -0.0141, Dice loss = nan
+INFO:root: Train duration =  61.343s, Val duration = 20.741s
+INFO:root:Epoch = [   4/40]
+INFO:root: Train -> Combined Loss = -0.434, Data Loss = -0.411428, Flow Loss = -0.022712, Dice loss = nan
+INFO:root: Val -> Combined Loss = -0.573, Data Loss = -0.55, Flow Loss = -0.0235, Dice loss = nan
+INFO:root: Train duration =  61.835s, Val duration = 21.044s
+INFO:root:Epoch = [   5/40]
+INFO:root: Train -> Combined Loss = -0.436, Data Loss = -0.399086, Flow Loss = -0.0373707, Dice loss = nan
+INFO:root: Val -> Combined Loss = -0.64, Data Loss = -0.602, Flow Loss = -0.0383, Dice loss = nan
+INFO:root: Train duration =  61.266s, Val duration = 20.938s
+INFO:root:Epoch = [   6/40]
+INFO:root: Train -> Combined Loss = -0.466, Data Loss = -0.409867, Flow Loss = -0.0557678, Dice loss = nan
+INFO:root: Val -> Combined Loss = -0.65, Data Loss = -0.598, Flow Loss = -0.0523, Dice loss = nan
+INFO:root: Train duration =  61.827s, Val duration = 20.746s
+INFO:root:Epoch = [   7/40]
+INFO:root: Train -> Combined Loss = -0.479, Data Loss = -0.405232, Flow Loss = -0.0740556, Dice loss = nan
+INFO:root: Val -> Combined Loss = -0.619, Data Loss = -0.553, Flow Loss = -0.0651, Dice loss = nan
+INFO:root: Train duration =  61.702s, Val duration = 21.062s
+INFO:root:Epoch = [   8/40]
+INFO:root: Train -> Combined Loss = -0.492, Data Loss = -0.400871, Flow Loss = -0.0911508, Dice loss = nan
+INFO:root: Val -> Combined Loss = -0.663, Data Loss = -0.578, Flow Loss = -0.0848, Dice loss = nan
+INFO:root: Train duration =  61.841s, Val duration = 20.911s
+INFO:root:Epoch = [   9/40]
+INFO:root: Train -> Combined Loss = -0.641, Data Loss = -0.542678, Flow Loss = -0.0979376, Dice loss = nan
+INFO:root: Val -> Combined Loss = -0.56, Data Loss = -0.48, Flow Loss = -0.0798, Dice loss = nan
+INFO:root: Train duration =  61.745s, Val duration = 20.908s
+INFO:root:Epoch = [  10/40]
+INFO:root: Train -> Combined Loss = -0.728, Data Loss = -0.621136, Flow Loss = -0.107043, Dice loss = nan
+INFO:root: Val -> Combined Loss = -0.561, Data Loss = -0.463, Flow Loss = -0.0981, Dice loss = nan
+INFO:root: Train duration =  61.874s, Val duration = 20.603s
+INFO:root:Epoch = [  11/40]
+INFO:root: Train -> Combined Loss = -0.748, Data Loss = -0.617927, Flow Loss = -0.130083, Dice loss = nan
+INFO:root: Val -> Combined Loss = -0.595, Data Loss = -0.478, Flow Loss = -0.117, Dice loss = nan
+INFO:root: Train duration =  61.749s, Val duration = 20.604s
+INFO:root:Epoch = [  12/40]
+INFO:root: Train -> Combined Loss = -0.825, Data Loss = -0.670045, Flow Loss = -0.155359, Dice loss = nan
+INFO:root: Val -> Combined Loss = -0.698, Data Loss = -0.558, Flow Loss = -0.139, Dice loss = nan
+INFO:root: Train duration =  61.613s, Val duration = 20.802s
+INFO:root:Epoch = [  13/40]
+INFO:root: Train -> Combined Loss = -0.563, Data Loss = -0.385219, Flow Loss = -0.177527, Dice loss = nan
+INFO:root: Val -> Combined Loss = -0.687, Data Loss = -0.551, Flow Loss = -0.136, Dice loss = nan
+INFO:root: Train duration =  61.506s, Val duration = 20.779s
+INFO:root:Epoch = [  14/40]
+INFO:root: Train -> Combined Loss = -0.549, Data Loss = -0.354229, Flow Loss = -0.194886, Dice loss = nan
+INFO:root: Val -> Combined Loss = -0.661, Data Loss = -0.491, Flow Loss = -0.17, Dice loss = nan
+INFO:root: Train duration =  61.593s, Val duration = 20.748s
+INFO:root:Epoch = [  15/40]
+INFO:root: Train -> Combined Loss = -0.816, Data Loss = -0.601111, Flow Loss = -0.215097, Dice loss = nan
+INFO:root: Val -> Combined Loss = -0.714, Data Loss = -0.522, Flow Loss = -0.192, Dice loss = nan
+INFO:root: Train duration =  61.535s, Val duration = 20.712s
+INFO:root:Epoch = [  16/40]
+INFO:root: Train -> Combined Loss = -0.625, Data Loss = -0.388701, Flow Loss = -0.236365, Dice loss = nan
+INFO:root: Val -> Combined Loss = -0.475, Data Loss = -0.437, Flow Loss = -0.0378, Dice loss = nan
+INFO:root: Train duration =  61.493s, Val duration = 20.780s
+INFO:root:Epoch = [  17/40]
+INFO:root: Train -> Combined Loss = -0.84, Data Loss = -0.621474, Flow Loss = -0.218522, Dice loss = nan
+INFO:root: Val -> Combined Loss = -0.608, Data Loss = -0.42, Flow Loss = -0.188, Dice loss = nan
+INFO:root: Train duration =  61.504s, Val duration = 20.845s
+INFO:root:Epoch = [  18/40]
+INFO:root: Train -> Combined Loss = -0.696, Data Loss = -0.453795, Flow Loss = -0.241781, Dice loss = nan
+INFO:root: Val -> Combined Loss = -0.582, Data Loss = -0.37, Flow Loss = -0.213, Dice loss = nan
+INFO:root: Train duration =  61.599s, Val duration = 20.707s
+INFO:root:Epoch = [  19/40]
+INFO:root: Train -> Combined Loss = -0.79, Data Loss = -0.514111, Flow Loss = -0.27596, Dice loss = nan
+INFO:root: Val -> Combined Loss = -0.637, Data Loss = -0.399, Flow Loss = -0.238, Dice loss = nan
+INFO:root: Train duration =  61.990s, Val duration = 20.611s
+INFO:root:Epoch = [  20/40]
+INFO:root: Train -> Combined Loss = -0.793, Data Loss = -0.495624, Flow Loss = -0.297857, Dice loss = nan
+INFO:root: Val -> Combined Loss = -0.712, Data Loss = -0.45, Flow Loss = -0.262, Dice loss = nan
+INFO:root: Train duration =  61.449s, Val duration = 20.789s
+INFO:root:Epoch = [  21/40]
+INFO:root: Train -> Combined Loss = -0.888, Data Loss = -0.559014, Flow Loss = -0.328735, Dice loss = nan
+INFO:root: Val -> Combined Loss = -0.793, Data Loss = -0.503, Flow Loss = -0.291, Dice loss = nan
+INFO:root: Train duration =  61.488s, Val duration = 20.806s
+INFO:root:Epoch = [  22/40]
+INFO:root: Train -> Combined Loss = -0.731, Data Loss = -0.374154, Flow Loss = -0.357124, Dice loss = nan
+INFO:root: Val -> Combined Loss = -0.715, Data Loss = -0.463, Flow Loss = -0.252, Dice loss = nan
+INFO:root: Train duration =  61.458s, Val duration = 20.488s
+INFO:root:Epoch = [  23/40]
+INFO:root: Train -> Combined Loss = -0.888, Data Loss = -0.514698, Flow Loss = -0.372802, Dice loss = nan
+INFO:root: Val -> Combined Loss = -0.804, Data Loss = -0.476, Flow Loss = -0.327, Dice loss = nan
+INFO:root: Train duration =  61.569s, Val duration = 20.544s
+INFO:root:Epoch = [  24/40]
+INFO:root: Train -> Combined Loss = -0.83, Data Loss = -0.429803, Flow Loss = -0.399956, Dice loss = nan
+INFO:root: Val -> Combined Loss = -0.868, Data Loss = -0.511, Flow Loss = -0.357, Dice loss = nan
+INFO:root: Train duration =  61.480s, Val duration = 20.931s
+INFO:root:Epoch = [  25/40]
+INFO:root: Train -> Combined Loss = -0.802, Data Loss = -0.370467, Flow Loss = -0.431798, Dice loss = nan
+INFO:root: Val -> Combined Loss = -0.861, Data Loss = -0.48, Flow Loss = -0.38, Dice loss = nan
+INFO:root: Train duration =  62.271s, Val duration = 20.985s
+INFO:root:Epoch = [  26/40]
+INFO:root: Train -> Combined Loss = -0.852, Data Loss = -0.391329, Flow Loss = -0.461089, Dice loss = nan
+INFO:root: Val -> Combined Loss = -0.955, Data Loss = -0.545, Flow Loss = -0.41, Dice loss = nan
+INFO:root: Train duration =  61.542s, Val duration = 20.733s
+INFO:root:Epoch = [  27/40]
+INFO:root: Train -> Combined Loss = -1.14, Data Loss = -0.665371, Flow Loss = -0.477059, Dice loss = nan
+INFO:root: Val -> Combined Loss = -0.88, Data Loss = -0.469, Flow Loss = -0.411, Dice loss = nan
+INFO:root: Train duration =  61.446s, Val duration = 20.742s
+INFO:root:Epoch = [  28/40]
+INFO:root: Train -> Combined Loss = -0.794, Data Loss = -0.30776, Flow Loss = -0.486719, Dice loss = nan
+INFO:root: Val -> Combined Loss = -0.885, Data Loss = -0.478, Flow Loss = -0.407, Dice loss = nan
+INFO:root: Train duration =  61.544s, Val duration = 20.612s
+INFO:root:Epoch = [  29/40]
+INFO:root: Train -> Combined Loss = -0.834, Data Loss = -0.317301, Flow Loss = -0.51657, Dice loss = nan
+INFO:root: Val -> Combined Loss = -0.939, Data Loss = -0.495, Flow Loss = -0.444, Dice loss = nan
+INFO:root: Train duration =  61.299s, Val duration = 20.647s
+INFO:root:Epoch = [  30/40]
+INFO:root: Train -> Combined Loss = -0.895, Data Loss = -0.341675, Flow Loss = -0.553457, Dice loss = nan
+INFO:root: Val -> Combined Loss = -1.03, Data Loss = -0.561, Flow Loss = -0.465, Dice loss = nan
+INFO:root: Train duration =  61.487s, Val duration = 21.024s
+INFO:root:Epoch = [  31/40]
+INFO:root: Train -> Combined Loss = -1, Data Loss = -0.425794, Flow Loss = -0.577729, Dice loss = nan
+INFO:root: Val -> Combined Loss = -0.666, Data Loss = -0.422, Flow Loss = -0.244, Dice loss = nan
+INFO:root: Train duration =  61.637s, Val duration = 20.666s
+INFO:root:Epoch = [  32/40]
+INFO:root: Train -> Combined Loss = -0.95, Data Loss = -0.38378, Flow Loss = -0.566027, Dice loss = nan
+INFO:root: Val -> Combined Loss = -0.914, Data Loss = -0.423, Flow Loss = -0.492, Dice loss = nan
+INFO:root: Train duration =  61.512s, Val duration = 20.777s
+INFO:root:Epoch = [  33/40]
+INFO:root: Train -> Combined Loss = -1.17, Data Loss = -0.572418, Flow Loss = -0.593434, Dice loss = nan
+INFO:root: Val -> Combined Loss = -0.939, Data Loss = -0.417, Flow Loss = -0.521, Dice loss = nan
+INFO:root: Train duration =  61.468s, Val duration = 20.772s
+INFO:root:Epoch = [  34/40]
+INFO:root: Train -> Combined Loss = -1.09, Data Loss = -0.45453, Flow Loss = -0.634497, Dice loss = nan
+INFO:root: Val -> Combined Loss = -1.03, Data Loss = -0.462, Flow Loss = -0.563, Dice loss = nan
+INFO:root: Train duration =  62.002s, Val duration = 20.491s
+INFO:root:Epoch = [  35/40]
+INFO:root: Train -> Combined Loss = -1.18, Data Loss = -0.504802, Flow Loss = -0.674123, Dice loss = nan
+INFO:root: Val -> Combined Loss = -1.14, Data Loss = -0.545, Flow Loss = -0.598, Dice loss = nan
+INFO:root: Train duration =  61.502s, Val duration = 20.759s
+INFO:root:Epoch = [  36/40]
+INFO:root: Train -> Combined Loss = -1.08, Data Loss = -0.374561, Flow Loss = -0.703698, Dice loss = nan
+INFO:root: Val -> Combined Loss = -1.08, Data Loss = -0.461, Flow Loss = -0.616, Dice loss = nan
+INFO:root: Train duration =  61.502s, Val duration = 20.827s
+INFO:root:Epoch = [  37/40]
+INFO:root: Train -> Combined Loss = -1.34, Data Loss = -0.618369, Flow Loss = -0.7203, Dice loss = nan
+INFO:root: Val -> Combined Loss = -0.982, Data Loss = -0.37, Flow Loss = -0.612, Dice loss = nan
+INFO:root: Train duration =  61.900s, Val duration = 20.519s
+INFO:root:Epoch = [  38/40]
+INFO:root: Train -> Combined Loss = -1.38, Data Loss = -0.638122, Flow Loss = -0.744476, Dice loss = nan
+INFO:root: Val -> Combined Loss = -1.1, Data Loss = -0.441, Flow Loss = -0.657, Dice loss = nan
+INFO:root: Train duration =  61.480s, Val duration = 20.723s
+INFO:root:Epoch = [  39/40]
+INFO:root: Train -> Combined Loss = -1.26, Data Loss = -0.481318, Flow Loss = -0.780459, Dice loss = nan
+INFO:root: Val -> Combined Loss = -1.17, Data Loss = -0.481, Flow Loss = -0.692, Dice loss = nan
+INFO:root: Train duration =  61.931s, Val duration = 20.862s

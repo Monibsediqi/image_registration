@@ -1,0 +1,475 @@
+INFO:root:Namespace(Tensor=<class 'torch.cuda.FloatTensor'>, accel_method='gpu', batch_size=1, checkpoint=None, data_loss='mse', data_parallel=True, data_type='dicom', debug=0, dec_nf=[32, 32, 32, 32, 32, 16], device='cuda', drop_prob=0.0, enc_nf=[32, 32, 32, 32], epochs=10, exp_name=PosixPath('patch_based_training'), export_dir=PosixPath('/media/monib/ext1/work2022/voxelmorph_nets/checkpoints/cyclemorph_patch'), flow_save_path_A=PosixPath('/media/monib/ext1/work2022/Base_Dataset/test/output_cy_morph/flows_A'), flow_save_path_B=PosixPath('/media/monib/ext1/work2022/Base_Dataset/test/output_cy_morph/flows_B'), full_size=True, inshape=[512, 512, 112], interpn='nearest', log_file_name='log_cycle_patch_test', lr=0.001, moved_save_path_A=PosixPath('/media/monib/ext1/work2022/Base_Dataset/test/output_cy_morph/moved_A'), moved_save_path_B=PosixPath('/media/monib/ext1/work2022/Base_Dataset/test/output_cy_morph/moved_B'), norm_method='z-score', op_sys='linux', optim='Adam', patch_size=128, reg_param=0.01, report_interval=5, report_interval_epoch=5000, resume=False, seed=42, sf=1, switch_residualpath=0, train_fixed_data=PosixPath('/media/monib/ext1/work2022/Base_Dataset/test/input/train/example_B'), train_moving_data=PosixPath('/media/monib/ext1/work2022/Base_Dataset/test/input/train/example_A'), use_mask=False, val_fixed_data=PosixPath('/media/monib/ext1/work2022/Base_Dataset/test/input/val/example_B'), val_moving_data=PosixPath('/media/monib/ext1/work2022/Base_Dataset/test/input/val/example_A'))
+INFO:root:DataParallel(
+  (module): BuildModel(
+    (VoxelMorph): cvpr2018_net(
+      (unet_model): Unet(
+        (encoder): ModuleList(
+          (0): ConvBlock(
+            (Conv): Conv3d(2, 32, kernel_size=(3, 3, 3), stride=(2, 2, 2), padding=(1, 1, 1))
+            (Norm): InstanceNorm3d(32, eps=1e-05, momentum=0.1, affine=False, track_running_stats=False)
+            (Activation): LeakyReLU(negative_slope=0.2)
+          )
+          (1): ConvBlock(
+            (Conv): Conv3d(32, 32, kernel_size=(3, 3, 3), stride=(2, 2, 2), padding=(1, 1, 1))
+            (Norm): InstanceNorm3d(32, eps=1e-05, momentum=0.1, affine=False, track_running_stats=False)
+            (Activation): LeakyReLU(negative_slope=0.2)
+          )
+          (2): ConvBlock(
+            (Conv): Conv3d(32, 32, kernel_size=(3, 3, 3), stride=(2, 2, 2), padding=(1, 1, 1))
+            (Norm): InstanceNorm3d(32, eps=1e-05, momentum=0.1, affine=False, track_running_stats=False)
+            (Activation): LeakyReLU(negative_slope=0.2)
+          )
+          (3): ConvBlock(
+            (Conv): Conv3d(32, 32, kernel_size=(3, 3, 3), stride=(2, 2, 2), padding=(1, 1, 1))
+            (Norm): InstanceNorm3d(32, eps=1e-05, momentum=0.1, affine=False, track_running_stats=False)
+            (Activation): LeakyReLU(negative_slope=0.2)
+          )
+        )
+        (decoder): ModuleList(
+          (0): ConvBlock(
+            (Conv): Conv3d(32, 32, kernel_size=(3, 3, 3), stride=(1, 1, 1), padding=(1, 1, 1))
+            (Norm): InstanceNorm3d(32, eps=1e-05, momentum=0.1, affine=False, track_running_stats=False)
+            (Activation): LeakyReLU(negative_slope=0.2)
+          )
+          (1): ConvBlock(
+            (Conv): Conv3d(64, 32, kernel_size=(3, 3, 3), stride=(1, 1, 1), padding=(1, 1, 1))
+            (Norm): InstanceNorm3d(32, eps=1e-05, momentum=0.1, affine=False, track_running_stats=False)
+            (Activation): LeakyReLU(negative_slope=0.2)
+          )
+          (2): ConvBlock(
+            (Conv): Conv3d(64, 32, kernel_size=(3, 3, 3), stride=(1, 1, 1), padding=(1, 1, 1))
+            (Norm): InstanceNorm3d(32, eps=1e-05, momentum=0.1, affine=False, track_running_stats=False)
+            (Activation): LeakyReLU(negative_slope=0.2)
+          )
+          (3): ConvBlock(
+            (Conv): Conv3d(64, 32, kernel_size=(3, 3, 3), stride=(1, 1, 1), padding=(1, 1, 1))
+            (Norm): InstanceNorm3d(32, eps=1e-05, momentum=0.1, affine=False, track_running_stats=False)
+            (Activation): LeakyReLU(negative_slope=0.2)
+          )
+          (4): ConvBlock(
+            (Conv): Conv3d(32, 32, kernel_size=(3, 3, 3), stride=(1, 1, 1), padding=(1, 1, 1))
+            (Norm): InstanceNorm3d(32, eps=1e-05, momentum=0.1, affine=False, track_running_stats=False)
+            (Activation): LeakyReLU(negative_slope=0.2)
+          )
+          (5): ConvBlock(
+            (Conv): Conv3d(34, 16, kernel_size=(3, 3, 3), stride=(1, 1, 1), padding=(1, 1, 1))
+            (Norm): InstanceNorm3d(16, eps=1e-05, momentum=0.1, affine=False, track_running_stats=False)
+            (Activation): LeakyReLU(negative_slope=0.2)
+          )
+        )
+        (upsample): Upsample(scale_factor=2.0, mode=nearest)
+      )
+      (flow): Conv3d(16, 3, kernel_size=(3, 3, 3), stride=(1, 1, 1), padding=(1, 1, 1))
+      (spatial_transform): SpatialTransformer()
+    )
+  )
+)
+INFO:root:Namespace(Tensor=<class 'torch.cuda.FloatTensor'>, accel_method='gpu', batch_size=1, checkpoint=None, data_loss='mse', data_parallel=True, data_type='dicom', debug=0, dec_nf=[32, 32, 32, 32, 32, 16], device='cuda', drop_prob=0.0, enc_nf=[32, 32, 32, 32], epochs=10, exp_name=PosixPath('patch_based_training'), export_dir=PosixPath('/media/monib/ext1/work2022/voxelmorph_nets/checkpoints/cyclemorph_patch'), flow_save_path_A=PosixPath('/media/monib/ext1/work2022/Base_Dataset/test/output_cy_morph/flows_A'), flow_save_path_B=PosixPath('/media/monib/ext1/work2022/Base_Dataset/test/output_cy_morph/flows_B'), full_size=True, inshape=[512, 512, 112], interpn='nearest', log_file_name='log_cycle_patch_test', lr=0.001, moved_save_path_A=PosixPath('/media/monib/ext1/work2022/Base_Dataset/test/output_cy_morph/moved_A'), moved_save_path_B=PosixPath('/media/monib/ext1/work2022/Base_Dataset/test/output_cy_morph/moved_B'), norm_method='z-score', op_sys='linux', optim='Adam', patch_size=128, reg_param=0.01, report_interval=5, report_interval_epoch=5000, resume=False, seed=42, sf=1, switch_residualpath=0, train_fixed_data=PosixPath('/media/monib/ext1/work2022/Base_Dataset/test/input/train/example_B'), train_moving_data=PosixPath('/media/monib/ext1/work2022/Base_Dataset/test/input/train/example_A'), use_mask=False, val_fixed_data=PosixPath('/media/monib/ext1/work2022/Base_Dataset/test/input/val/example_B'), val_moving_data=PosixPath('/media/monib/ext1/work2022/Base_Dataset/test/input/val/example_A'))
+INFO:root:DataParallel(
+  (module): BuildModel(
+    (VoxelMorph): cvpr2018_net(
+      (unet_model): Unet(
+        (encoder): ModuleList(
+          (0): ConvBlock(
+            (Conv): Conv3d(2, 32, kernel_size=(3, 3, 3), stride=(2, 2, 2), padding=(1, 1, 1))
+            (Norm): InstanceNorm3d(32, eps=1e-05, momentum=0.1, affine=False, track_running_stats=False)
+            (Activation): LeakyReLU(negative_slope=0.2)
+          )
+          (1): ConvBlock(
+            (Conv): Conv3d(32, 32, kernel_size=(3, 3, 3), stride=(2, 2, 2), padding=(1, 1, 1))
+            (Norm): InstanceNorm3d(32, eps=1e-05, momentum=0.1, affine=False, track_running_stats=False)
+            (Activation): LeakyReLU(negative_slope=0.2)
+          )
+          (2): ConvBlock(
+            (Conv): Conv3d(32, 32, kernel_size=(3, 3, 3), stride=(2, 2, 2), padding=(1, 1, 1))
+            (Norm): InstanceNorm3d(32, eps=1e-05, momentum=0.1, affine=False, track_running_stats=False)
+            (Activation): LeakyReLU(negative_slope=0.2)
+          )
+          (3): ConvBlock(
+            (Conv): Conv3d(32, 32, kernel_size=(3, 3, 3), stride=(2, 2, 2), padding=(1, 1, 1))
+            (Norm): InstanceNorm3d(32, eps=1e-05, momentum=0.1, affine=False, track_running_stats=False)
+            (Activation): LeakyReLU(negative_slope=0.2)
+          )
+        )
+        (decoder): ModuleList(
+          (0): ConvBlock(
+            (Conv): Conv3d(32, 32, kernel_size=(3, 3, 3), stride=(1, 1, 1), padding=(1, 1, 1))
+            (Norm): InstanceNorm3d(32, eps=1e-05, momentum=0.1, affine=False, track_running_stats=False)
+            (Activation): LeakyReLU(negative_slope=0.2)
+          )
+          (1): ConvBlock(
+            (Conv): Conv3d(64, 32, kernel_size=(3, 3, 3), stride=(1, 1, 1), padding=(1, 1, 1))
+            (Norm): InstanceNorm3d(32, eps=1e-05, momentum=0.1, affine=False, track_running_stats=False)
+            (Activation): LeakyReLU(negative_slope=0.2)
+          )
+          (2): ConvBlock(
+            (Conv): Conv3d(64, 32, kernel_size=(3, 3, 3), stride=(1, 1, 1), padding=(1, 1, 1))
+            (Norm): InstanceNorm3d(32, eps=1e-05, momentum=0.1, affine=False, track_running_stats=False)
+            (Activation): LeakyReLU(negative_slope=0.2)
+          )
+          (3): ConvBlock(
+            (Conv): Conv3d(64, 32, kernel_size=(3, 3, 3), stride=(1, 1, 1), padding=(1, 1, 1))
+            (Norm): InstanceNorm3d(32, eps=1e-05, momentum=0.1, affine=False, track_running_stats=False)
+            (Activation): LeakyReLU(negative_slope=0.2)
+          )
+          (4): ConvBlock(
+            (Conv): Conv3d(32, 32, kernel_size=(3, 3, 3), stride=(1, 1, 1), padding=(1, 1, 1))
+            (Norm): InstanceNorm3d(32, eps=1e-05, momentum=0.1, affine=False, track_running_stats=False)
+            (Activation): LeakyReLU(negative_slope=0.2)
+          )
+          (5): ConvBlock(
+            (Conv): Conv3d(34, 16, kernel_size=(3, 3, 3), stride=(1, 1, 1), padding=(1, 1, 1))
+            (Norm): InstanceNorm3d(16, eps=1e-05, momentum=0.1, affine=False, track_running_stats=False)
+            (Activation): LeakyReLU(negative_slope=0.2)
+          )
+        )
+        (upsample): Upsample(scale_factor=2.0, mode=nearest)
+      )
+      (flow): Conv3d(16, 3, kernel_size=(3, 3, 3), stride=(1, 1, 1), padding=(1, 1, 1))
+      (spatial_transform): SpatialTransformer()
+    )
+  )
+)
+INFO:root: Epoch = [   0/10], Train Loss = 0.91051,   Val Loss =  3.0725, Train duration =  160.9141s, Val duration = 10.6039s
+INFO:root: Epoch = [   1/10], Train Loss = 1.0713,   Val Loss =  3.4628, Train duration =  160.3120s, Val duration = 10.6799s
+INFO:root: Epoch = [   2/10], Train Loss = 1.8986,   Val Loss =  2.5717, Train duration =  160.9777s, Val duration = 10.6408s
+INFO:root:Namespace(Tensor=<class 'torch.cuda.FloatTensor'>, accel_method='gpu', batch_size=1, checkpoint=None, data_loss='mse', data_parallel=True, data_type='dicom', debug=0, dec_nf=[32, 32, 32, 32, 32, 16], device='cuda', drop_prob=0.0, enc_nf=[32, 32, 32, 32], epochs=10, exp_name=PosixPath('patch_based_training'), export_dir=PosixPath('/media/monib/ext1/work2022/voxelmorph_nets/checkpoints/cyclemorph_patch'), flow_save_path_A=PosixPath('/media/monib/ext1/work2022/Base_Dataset/test/output_cy_morph/flows_A'), flow_save_path_B=PosixPath('/media/monib/ext1/work2022/Base_Dataset/test/output_cy_morph/flows_B'), full_size=True, inshape=[512, 512, 112], interpn='nearest', log_file_name='log_cycle_patch_test', lr=0.001, moved_save_path_A=PosixPath('/media/monib/ext1/work2022/Base_Dataset/test/output_cy_morph/moved_A'), moved_save_path_B=PosixPath('/media/monib/ext1/work2022/Base_Dataset/test/output_cy_morph/moved_B'), norm_method='z-score', op_sys='linux', optim='Adam', patch_size=128, reg_param=0.01, report_interval=5, report_interval_epoch=5000, resume=False, seed=42, sf=1, switch_residualpath=0, train_fixed_data=PosixPath('/media/monib/ext1/work2022/Base_Dataset/test/input/train/example_B'), train_moving_data=PosixPath('/media/monib/ext1/work2022/Base_Dataset/test/input/train/example_A'), use_mask=False, val_fixed_data=PosixPath('/media/monib/ext1/work2022/Base_Dataset/test/input/val/example_B'), val_moving_data=PosixPath('/media/monib/ext1/work2022/Base_Dataset/test/input/val/example_A'))
+INFO:root:DataParallel(
+  (module): BuildModel(
+    (VoxelMorph): cvpr2018_net(
+      (unet_model): Unet(
+        (encoder): ModuleList(
+          (0): ConvBlock(
+            (Conv): Conv3d(2, 32, kernel_size=(3, 3, 3), stride=(2, 2, 2), padding=(1, 1, 1))
+            (Norm): InstanceNorm3d(32, eps=1e-05, momentum=0.1, affine=False, track_running_stats=False)
+            (Activation): LeakyReLU(negative_slope=0.2)
+          )
+          (1): ConvBlock(
+            (Conv): Conv3d(32, 32, kernel_size=(3, 3, 3), stride=(2, 2, 2), padding=(1, 1, 1))
+            (Norm): InstanceNorm3d(32, eps=1e-05, momentum=0.1, affine=False, track_running_stats=False)
+            (Activation): LeakyReLU(negative_slope=0.2)
+          )
+          (2): ConvBlock(
+            (Conv): Conv3d(32, 32, kernel_size=(3, 3, 3), stride=(2, 2, 2), padding=(1, 1, 1))
+            (Norm): InstanceNorm3d(32, eps=1e-05, momentum=0.1, affine=False, track_running_stats=False)
+            (Activation): LeakyReLU(negative_slope=0.2)
+          )
+          (3): ConvBlock(
+            (Conv): Conv3d(32, 32, kernel_size=(3, 3, 3), stride=(2, 2, 2), padding=(1, 1, 1))
+            (Norm): InstanceNorm3d(32, eps=1e-05, momentum=0.1, affine=False, track_running_stats=False)
+            (Activation): LeakyReLU(negative_slope=0.2)
+          )
+        )
+        (decoder): ModuleList(
+          (0): ConvBlock(
+            (Conv): Conv3d(32, 32, kernel_size=(3, 3, 3), stride=(1, 1, 1), padding=(1, 1, 1))
+            (Norm): InstanceNorm3d(32, eps=1e-05, momentum=0.1, affine=False, track_running_stats=False)
+            (Activation): LeakyReLU(negative_slope=0.2)
+          )
+          (1): ConvBlock(
+            (Conv): Conv3d(64, 32, kernel_size=(3, 3, 3), stride=(1, 1, 1), padding=(1, 1, 1))
+            (Norm): InstanceNorm3d(32, eps=1e-05, momentum=0.1, affine=False, track_running_stats=False)
+            (Activation): LeakyReLU(negative_slope=0.2)
+          )
+          (2): ConvBlock(
+            (Conv): Conv3d(64, 32, kernel_size=(3, 3, 3), stride=(1, 1, 1), padding=(1, 1, 1))
+            (Norm): InstanceNorm3d(32, eps=1e-05, momentum=0.1, affine=False, track_running_stats=False)
+            (Activation): LeakyReLU(negative_slope=0.2)
+          )
+          (3): ConvBlock(
+            (Conv): Conv3d(64, 32, kernel_size=(3, 3, 3), stride=(1, 1, 1), padding=(1, 1, 1))
+            (Norm): InstanceNorm3d(32, eps=1e-05, momentum=0.1, affine=False, track_running_stats=False)
+            (Activation): LeakyReLU(negative_slope=0.2)
+          )
+          (4): ConvBlock(
+            (Conv): Conv3d(32, 32, kernel_size=(3, 3, 3), stride=(1, 1, 1), padding=(1, 1, 1))
+            (Norm): InstanceNorm3d(32, eps=1e-05, momentum=0.1, affine=False, track_running_stats=False)
+            (Activation): LeakyReLU(negative_slope=0.2)
+          )
+          (5): ConvBlock(
+            (Conv): Conv3d(34, 16, kernel_size=(3, 3, 3), stride=(1, 1, 1), padding=(1, 1, 1))
+            (Norm): InstanceNorm3d(16, eps=1e-05, momentum=0.1, affine=False, track_running_stats=False)
+            (Activation): LeakyReLU(negative_slope=0.2)
+          )
+        )
+        (upsample): Upsample(scale_factor=2.0, mode=nearest)
+      )
+      (flow): Conv3d(16, 3, kernel_size=(3, 3, 3), stride=(1, 1, 1), padding=(1, 1, 1))
+      (spatial_transform): SpatialTransformer()
+    )
+  )
+)
+INFO:root:Namespace(Tensor=<class 'torch.cuda.FloatTensor'>, accel_method='gpu', batch_size=1, checkpoint=None, data_loss='mse', data_parallel=True, data_type='dicom', debug=0, dec_nf=[32, 32, 32, 32, 32, 16], device='cuda', drop_prob=0.0, enc_nf=[32, 32, 32, 32], epochs=10, exp_name=PosixPath('patch_based_training'), export_dir=PosixPath('/media/monib/ext1/work2022/voxelmorph_nets/checkpoints/cyclemorph_patch'), flow_save_path_A=PosixPath('/media/monib/ext1/work2022/Base_Dataset/test/output_cy_morph/flows_A'), flow_save_path_B=PosixPath('/media/monib/ext1/work2022/Base_Dataset/test/output_cy_morph/flows_B'), full_size=True, inshape=[512, 512, 112], interpn='nearest', log_file_name='log_cycle_patch_test', lr=0.001, moved_save_path_A=PosixPath('/media/monib/ext1/work2022/Base_Dataset/test/output_cy_morph/moved_A'), moved_save_path_B=PosixPath('/media/monib/ext1/work2022/Base_Dataset/test/output_cy_morph/moved_B'), norm_method='z-score', op_sys='linux', optim='Adam', patch_size=128, reg_param=0.01, report_interval=5, report_interval_epoch=5000, resume=False, seed=42, sf=1, switch_residualpath=0, train_fixed_data=PosixPath('/media/monib/ext1/work2022/Base_Dataset/test/input/train/example_B'), train_moving_data=PosixPath('/media/monib/ext1/work2022/Base_Dataset/test/input/train/example_A'), use_mask=False, val_fixed_data=PosixPath('/media/monib/ext1/work2022/Base_Dataset/test/input/val/example_B'), val_moving_data=PosixPath('/media/monib/ext1/work2022/Base_Dataset/test/input/val/example_A'))
+INFO:root:DataParallel(
+  (module): BuildModel(
+    (VoxelMorph): cvpr2018_net(
+      (unet_model): Unet(
+        (encoder): ModuleList(
+          (0): ConvBlock(
+            (Conv): Conv3d(2, 32, kernel_size=(3, 3, 3), stride=(2, 2, 2), padding=(1, 1, 1))
+            (Norm): InstanceNorm3d(32, eps=1e-05, momentum=0.1, affine=False, track_running_stats=False)
+            (Activation): LeakyReLU(negative_slope=0.2)
+          )
+          (1): ConvBlock(
+            (Conv): Conv3d(32, 32, kernel_size=(3, 3, 3), stride=(2, 2, 2), padding=(1, 1, 1))
+            (Norm): InstanceNorm3d(32, eps=1e-05, momentum=0.1, affine=False, track_running_stats=False)
+            (Activation): LeakyReLU(negative_slope=0.2)
+          )
+          (2): ConvBlock(
+            (Conv): Conv3d(32, 32, kernel_size=(3, 3, 3), stride=(2, 2, 2), padding=(1, 1, 1))
+            (Norm): InstanceNorm3d(32, eps=1e-05, momentum=0.1, affine=False, track_running_stats=False)
+            (Activation): LeakyReLU(negative_slope=0.2)
+          )
+          (3): ConvBlock(
+            (Conv): Conv3d(32, 32, kernel_size=(3, 3, 3), stride=(2, 2, 2), padding=(1, 1, 1))
+            (Norm): InstanceNorm3d(32, eps=1e-05, momentum=0.1, affine=False, track_running_stats=False)
+            (Activation): LeakyReLU(negative_slope=0.2)
+          )
+        )
+        (decoder): ModuleList(
+          (0): ConvBlock(
+            (Conv): Conv3d(32, 32, kernel_size=(3, 3, 3), stride=(1, 1, 1), padding=(1, 1, 1))
+            (Norm): InstanceNorm3d(32, eps=1e-05, momentum=0.1, affine=False, track_running_stats=False)
+            (Activation): LeakyReLU(negative_slope=0.2)
+          )
+          (1): ConvBlock(
+            (Conv): Conv3d(64, 32, kernel_size=(3, 3, 3), stride=(1, 1, 1), padding=(1, 1, 1))
+            (Norm): InstanceNorm3d(32, eps=1e-05, momentum=0.1, affine=False, track_running_stats=False)
+            (Activation): LeakyReLU(negative_slope=0.2)
+          )
+          (2): ConvBlock(
+            (Conv): Conv3d(64, 32, kernel_size=(3, 3, 3), stride=(1, 1, 1), padding=(1, 1, 1))
+            (Norm): InstanceNorm3d(32, eps=1e-05, momentum=0.1, affine=False, track_running_stats=False)
+            (Activation): LeakyReLU(negative_slope=0.2)
+          )
+          (3): ConvBlock(
+            (Conv): Conv3d(64, 32, kernel_size=(3, 3, 3), stride=(1, 1, 1), padding=(1, 1, 1))
+            (Norm): InstanceNorm3d(32, eps=1e-05, momentum=0.1, affine=False, track_running_stats=False)
+            (Activation): LeakyReLU(negative_slope=0.2)
+          )
+          (4): ConvBlock(
+            (Conv): Conv3d(32, 32, kernel_size=(3, 3, 3), stride=(1, 1, 1), padding=(1, 1, 1))
+            (Norm): InstanceNorm3d(32, eps=1e-05, momentum=0.1, affine=False, track_running_stats=False)
+            (Activation): LeakyReLU(negative_slope=0.2)
+          )
+          (5): ConvBlock(
+            (Conv): Conv3d(34, 16, kernel_size=(3, 3, 3), stride=(1, 1, 1), padding=(1, 1, 1))
+            (Norm): InstanceNorm3d(16, eps=1e-05, momentum=0.1, affine=False, track_running_stats=False)
+            (Activation): LeakyReLU(negative_slope=0.2)
+          )
+        )
+        (upsample): Upsample(scale_factor=2.0, mode=nearest)
+      )
+      (flow): Conv3d(16, 3, kernel_size=(3, 3, 3), stride=(1, 1, 1), padding=(1, 1, 1))
+      (spatial_transform): SpatialTransformer()
+    )
+  )
+)
+INFO:root:Namespace(Tensor=<class 'torch.cuda.FloatTensor'>, accel_method='gpu', batch_size=1, checkpoint=None, data_loss='mse', data_parallel=True, data_type='dicom', debug=0, dec_nf=[32, 32, 32, 32, 32, 16], device='cuda', drop_prob=0.0, enc_nf=[32, 32, 32, 32], epochs=10, exp_name=PosixPath('patch_based_training'), export_dir=PosixPath('/media/monib/ext1/work2022/voxelmorph_nets/checkpoints/cyclemorph_patch'), flow_save_path_A=PosixPath('/media/monib/ext1/work2022/Base_Dataset/test/output_cy_morph/flows_A'), flow_save_path_B=PosixPath('/media/monib/ext1/work2022/Base_Dataset/test/output_cy_morph/flows_B'), full_size=True, inshape=[512, 512, 112], interpn='nearest', log_file_name='log_cycle_patch_test', lr=0.001, moved_save_path_A=PosixPath('/media/monib/ext1/work2022/Base_Dataset/test/output_cy_morph/moved_A'), moved_save_path_B=PosixPath('/media/monib/ext1/work2022/Base_Dataset/test/output_cy_morph/moved_B'), norm_method='z-score', op_sys='linux', optim='Adam', patch_size=128, reg_param=0.01, report_interval=5, report_interval_epoch=5000, resume=False, seed=42, sf=1, switch_residualpath=0, train_fixed_data=PosixPath('/media/monib/ext1/work2022/Base_Dataset/test/input/train/example_B'), train_moving_data=PosixPath('/media/monib/ext1/work2022/Base_Dataset/test/input/train/example_A'), use_mask=False, val_fixed_data=PosixPath('/media/monib/ext1/work2022/Base_Dataset/test/input/val/example_B'), val_moving_data=PosixPath('/media/monib/ext1/work2022/Base_Dataset/test/input/val/example_A'))
+INFO:root:DataParallel(
+  (module): BuildModel(
+    (VoxelMorph): cvpr2018_net(
+      (unet_model): Unet(
+        (encoder): ModuleList(
+          (0): ConvBlock(
+            (Conv): Conv3d(2, 32, kernel_size=(3, 3, 3), stride=(2, 2, 2), padding=(1, 1, 1))
+            (Norm): InstanceNorm3d(32, eps=1e-05, momentum=0.1, affine=False, track_running_stats=False)
+            (Activation): LeakyReLU(negative_slope=0.2)
+          )
+          (1): ConvBlock(
+            (Conv): Conv3d(32, 32, kernel_size=(3, 3, 3), stride=(2, 2, 2), padding=(1, 1, 1))
+            (Norm): InstanceNorm3d(32, eps=1e-05, momentum=0.1, affine=False, track_running_stats=False)
+            (Activation): LeakyReLU(negative_slope=0.2)
+          )
+          (2): ConvBlock(
+            (Conv): Conv3d(32, 32, kernel_size=(3, 3, 3), stride=(2, 2, 2), padding=(1, 1, 1))
+            (Norm): InstanceNorm3d(32, eps=1e-05, momentum=0.1, affine=False, track_running_stats=False)
+            (Activation): LeakyReLU(negative_slope=0.2)
+          )
+          (3): ConvBlock(
+            (Conv): Conv3d(32, 32, kernel_size=(3, 3, 3), stride=(2, 2, 2), padding=(1, 1, 1))
+            (Norm): InstanceNorm3d(32, eps=1e-05, momentum=0.1, affine=False, track_running_stats=False)
+            (Activation): LeakyReLU(negative_slope=0.2)
+          )
+        )
+        (decoder): ModuleList(
+          (0): ConvBlock(
+            (Conv): Conv3d(32, 32, kernel_size=(3, 3, 3), stride=(1, 1, 1), padding=(1, 1, 1))
+            (Norm): InstanceNorm3d(32, eps=1e-05, momentum=0.1, affine=False, track_running_stats=False)
+            (Activation): LeakyReLU(negative_slope=0.2)
+          )
+          (1): ConvBlock(
+            (Conv): Conv3d(64, 32, kernel_size=(3, 3, 3), stride=(1, 1, 1), padding=(1, 1, 1))
+            (Norm): InstanceNorm3d(32, eps=1e-05, momentum=0.1, affine=False, track_running_stats=False)
+            (Activation): LeakyReLU(negative_slope=0.2)
+          )
+          (2): ConvBlock(
+            (Conv): Conv3d(64, 32, kernel_size=(3, 3, 3), stride=(1, 1, 1), padding=(1, 1, 1))
+            (Norm): InstanceNorm3d(32, eps=1e-05, momentum=0.1, affine=False, track_running_stats=False)
+            (Activation): LeakyReLU(negative_slope=0.2)
+          )
+          (3): ConvBlock(
+            (Conv): Conv3d(64, 32, kernel_size=(3, 3, 3), stride=(1, 1, 1), padding=(1, 1, 1))
+            (Norm): InstanceNorm3d(32, eps=1e-05, momentum=0.1, affine=False, track_running_stats=False)
+            (Activation): LeakyReLU(negative_slope=0.2)
+          )
+          (4): ConvBlock(
+            (Conv): Conv3d(32, 32, kernel_size=(3, 3, 3), stride=(1, 1, 1), padding=(1, 1, 1))
+            (Norm): InstanceNorm3d(32, eps=1e-05, momentum=0.1, affine=False, track_running_stats=False)
+            (Activation): LeakyReLU(negative_slope=0.2)
+          )
+          (5): ConvBlock(
+            (Conv): Conv3d(34, 16, kernel_size=(3, 3, 3), stride=(1, 1, 1), padding=(1, 1, 1))
+            (Norm): InstanceNorm3d(16, eps=1e-05, momentum=0.1, affine=False, track_running_stats=False)
+            (Activation): LeakyReLU(negative_slope=0.2)
+          )
+        )
+        (upsample): Upsample(scale_factor=2.0, mode=nearest)
+      )
+      (flow): Conv3d(16, 3, kernel_size=(3, 3, 3), stride=(1, 1, 1), padding=(1, 1, 1))
+      (spatial_transform): SpatialTransformer()
+    )
+  )
+)
+INFO:root:Namespace(Tensor=<class 'torch.cuda.FloatTensor'>, accel_method='gpu', batch_size=1, checkpoint=None, data_loss='mse', data_parallel=True, data_type='dicom', debug=0, dec_nf=[32, 32, 32, 32, 32, 16], device='cuda', drop_prob=0.0, enc_nf=[32, 32, 32, 32], epochs=10, exp_name=PosixPath('patch_based_training'), export_dir=PosixPath('/media/monib/ext1/work2022/voxelmorph_nets/checkpoints/cyclemorph_patch'), flow_save_path_A=PosixPath('/media/monib/ext1/work2022/Base_Dataset/test/output_cy_morph/flows_A'), flow_save_path_B=PosixPath('/media/monib/ext1/work2022/Base_Dataset/test/output_cy_morph/flows_B'), full_size=True, inshape=[512, 512, 112], interpn='nearest', log_file_name='log_cycle_patch_test', lr=0.001, moved_save_path_A=PosixPath('/media/monib/ext1/work2022/Base_Dataset/test/output_cy_morph/moved_A'), moved_save_path_B=PosixPath('/media/monib/ext1/work2022/Base_Dataset/test/output_cy_morph/moved_B'), norm_method='z-score', op_sys='linux', optim='Adam', patch_size=128, reg_param=0.01, report_interval=5, report_interval_epoch=5000, resume=False, seed=42, sf=1, switch_residualpath=0, train_fixed_data=PosixPath('/media/monib/ext1/work2022/Base_Dataset/test/input/train/example_B'), train_moving_data=PosixPath('/media/monib/ext1/work2022/Base_Dataset/test/input/train/example_A'), use_mask=False, val_fixed_data=PosixPath('/media/monib/ext1/work2022/Base_Dataset/test/input/val/example_B'), val_moving_data=PosixPath('/media/monib/ext1/work2022/Base_Dataset/test/input/val/example_A'))
+INFO:root:DataParallel(
+  (module): BuildModel(
+    (VoxelMorph): cvpr2018_net(
+      (unet_model): Unet(
+        (encoder): ModuleList(
+          (0): ConvBlock(
+            (Conv): Conv3d(2, 32, kernel_size=(3, 3, 3), stride=(2, 2, 2), padding=(1, 1, 1))
+            (Norm): InstanceNorm3d(32, eps=1e-05, momentum=0.1, affine=False, track_running_stats=False)
+            (Activation): LeakyReLU(negative_slope=0.2)
+          )
+          (1): ConvBlock(
+            (Conv): Conv3d(32, 32, kernel_size=(3, 3, 3), stride=(2, 2, 2), padding=(1, 1, 1))
+            (Norm): InstanceNorm3d(32, eps=1e-05, momentum=0.1, affine=False, track_running_stats=False)
+            (Activation): LeakyReLU(negative_slope=0.2)
+          )
+          (2): ConvBlock(
+            (Conv): Conv3d(32, 32, kernel_size=(3, 3, 3), stride=(2, 2, 2), padding=(1, 1, 1))
+            (Norm): InstanceNorm3d(32, eps=1e-05, momentum=0.1, affine=False, track_running_stats=False)
+            (Activation): LeakyReLU(negative_slope=0.2)
+          )
+          (3): ConvBlock(
+            (Conv): Conv3d(32, 32, kernel_size=(3, 3, 3), stride=(2, 2, 2), padding=(1, 1, 1))
+            (Norm): InstanceNorm3d(32, eps=1e-05, momentum=0.1, affine=False, track_running_stats=False)
+            (Activation): LeakyReLU(negative_slope=0.2)
+          )
+        )
+        (decoder): ModuleList(
+          (0): ConvBlock(
+            (Conv): Conv3d(32, 32, kernel_size=(3, 3, 3), stride=(1, 1, 1), padding=(1, 1, 1))
+            (Norm): InstanceNorm3d(32, eps=1e-05, momentum=0.1, affine=False, track_running_stats=False)
+            (Activation): LeakyReLU(negative_slope=0.2)
+          )
+          (1): ConvBlock(
+            (Conv): Conv3d(64, 32, kernel_size=(3, 3, 3), stride=(1, 1, 1), padding=(1, 1, 1))
+            (Norm): InstanceNorm3d(32, eps=1e-05, momentum=0.1, affine=False, track_running_stats=False)
+            (Activation): LeakyReLU(negative_slope=0.2)
+          )
+          (2): ConvBlock(
+            (Conv): Conv3d(64, 32, kernel_size=(3, 3, 3), stride=(1, 1, 1), padding=(1, 1, 1))
+            (Norm): InstanceNorm3d(32, eps=1e-05, momentum=0.1, affine=False, track_running_stats=False)
+            (Activation): LeakyReLU(negative_slope=0.2)
+          )
+          (3): ConvBlock(
+            (Conv): Conv3d(64, 32, kernel_size=(3, 3, 3), stride=(1, 1, 1), padding=(1, 1, 1))
+            (Norm): InstanceNorm3d(32, eps=1e-05, momentum=0.1, affine=False, track_running_stats=False)
+            (Activation): LeakyReLU(negative_slope=0.2)
+          )
+          (4): ConvBlock(
+            (Conv): Conv3d(32, 32, kernel_size=(3, 3, 3), stride=(1, 1, 1), padding=(1, 1, 1))
+            (Norm): InstanceNorm3d(32, eps=1e-05, momentum=0.1, affine=False, track_running_stats=False)
+            (Activation): LeakyReLU(negative_slope=0.2)
+          )
+          (5): ConvBlock(
+            (Conv): Conv3d(34, 16, kernel_size=(3, 3, 3), stride=(1, 1, 1), padding=(1, 1, 1))
+            (Norm): InstanceNorm3d(16, eps=1e-05, momentum=0.1, affine=False, track_running_stats=False)
+            (Activation): LeakyReLU(negative_slope=0.2)
+          )
+        )
+        (upsample): Upsample(scale_factor=2.0, mode=nearest)
+      )
+      (flow): Conv3d(16, 3, kernel_size=(3, 3, 3), stride=(1, 1, 1), padding=(1, 1, 1))
+      (spatial_transform): SpatialTransformer()
+    )
+  )
+)
+INFO:root:Namespace(Tensor=<class 'torch.cuda.FloatTensor'>, accel_method='gpu', batch_size=1, checkpoint=None, data_loss='mse', data_parallel=True, data_type='dicom', debug=0, dec_nf=[32, 32, 32, 32, 32, 16], device='cuda', drop_prob=0.0, enc_nf=[32, 32, 32, 32], epochs=10, exp_name=PosixPath('patch_based_training'), export_dir=PosixPath('/media/monib/ext1/work2022/voxelmorph_nets/checkpoints/cyclemorph_patch'), flow_save_path_A=PosixPath('/media/monib/ext1/work2022/Base_Dataset/test/output_cy_morph/flows_A'), flow_save_path_B=PosixPath('/media/monib/ext1/work2022/Base_Dataset/test/output_cy_morph/flows_B'), full_size=True, inshape=[512, 512, 112], interpn='nearest', log_file_name='log_cycle_patch_test', lr=0.001, moved_save_path_A=PosixPath('/media/monib/ext1/work2022/Base_Dataset/test/output_cy_morph/moved_A'), moved_save_path_B=PosixPath('/media/monib/ext1/work2022/Base_Dataset/test/output_cy_morph/moved_B'), norm_method='z-score', op_sys='linux', optim='Adam', patch_size=128, reg_param=0.01, report_interval=5, report_interval_epoch=5000, resume=False, seed=42, sf=1, switch_residualpath=0, train_fixed_data=PosixPath('/media/monib/ext1/work2022/Base_Dataset/test/input/train/example_B'), train_moving_data=PosixPath('/media/monib/ext1/work2022/Base_Dataset/test/input/train/example_A'), use_mask=False, val_fixed_data=PosixPath('/media/monib/ext1/work2022/Base_Dataset/test/input/val/example_B'), val_moving_data=PosixPath('/media/monib/ext1/work2022/Base_Dataset/test/input/val/example_A'))
+INFO:root:DataParallel(
+  (module): BuildModel(
+    (VoxelMorph): cvpr2018_net(
+      (unet_model): Unet(
+        (encoder): ModuleList(
+          (0): ConvBlock(
+            (Conv): Conv3d(2, 32, kernel_size=(3, 3, 3), stride=(2, 2, 2), padding=(1, 1, 1))
+            (Norm): InstanceNorm3d(32, eps=1e-05, momentum=0.1, affine=False, track_running_stats=False)
+            (Activation): LeakyReLU(negative_slope=0.2)
+          )
+          (1): ConvBlock(
+            (Conv): Conv3d(32, 32, kernel_size=(3, 3, 3), stride=(2, 2, 2), padding=(1, 1, 1))
+            (Norm): InstanceNorm3d(32, eps=1e-05, momentum=0.1, affine=False, track_running_stats=False)
+            (Activation): LeakyReLU(negative_slope=0.2)
+          )
+          (2): ConvBlock(
+            (Conv): Conv3d(32, 32, kernel_size=(3, 3, 3), stride=(2, 2, 2), padding=(1, 1, 1))
+            (Norm): InstanceNorm3d(32, eps=1e-05, momentum=0.1, affine=False, track_running_stats=False)
+            (Activation): LeakyReLU(negative_slope=0.2)
+          )
+          (3): ConvBlock(
+            (Conv): Conv3d(32, 32, kernel_size=(3, 3, 3), stride=(2, 2, 2), padding=(1, 1, 1))
+            (Norm): InstanceNorm3d(32, eps=1e-05, momentum=0.1, affine=False, track_running_stats=False)
+            (Activation): LeakyReLU(negative_slope=0.2)
+          )
+        )
+        (decoder): ModuleList(
+          (0): ConvBlock(
+            (Conv): Conv3d(32, 32, kernel_size=(3, 3, 3), stride=(1, 1, 1), padding=(1, 1, 1))
+            (Norm): InstanceNorm3d(32, eps=1e-05, momentum=0.1, affine=False, track_running_stats=False)
+            (Activation): LeakyReLU(negative_slope=0.2)
+          )
+          (1): ConvBlock(
+            (Conv): Conv3d(64, 32, kernel_size=(3, 3, 3), stride=(1, 1, 1), padding=(1, 1, 1))
+            (Norm): InstanceNorm3d(32, eps=1e-05, momentum=0.1, affine=False, track_running_stats=False)
+            (Activation): LeakyReLU(negative_slope=0.2)
+          )
+          (2): ConvBlock(
+            (Conv): Conv3d(64, 32, kernel_size=(3, 3, 3), stride=(1, 1, 1), padding=(1, 1, 1))
+            (Norm): InstanceNorm3d(32, eps=1e-05, momentum=0.1, affine=False, track_running_stats=False)
+            (Activation): LeakyReLU(negative_slope=0.2)
+          )
+          (3): ConvBlock(
+            (Conv): Conv3d(64, 32, kernel_size=(3, 3, 3), stride=(1, 1, 1), padding=(1, 1, 1))
+            (Norm): InstanceNorm3d(32, eps=1e-05, momentum=0.1, affine=False, track_running_stats=False)
+            (Activation): LeakyReLU(negative_slope=0.2)
+          )
+          (4): ConvBlock(
+            (Conv): Conv3d(32, 32, kernel_size=(3, 3, 3), stride=(1, 1, 1), padding=(1, 1, 1))
+            (Norm): InstanceNorm3d(32, eps=1e-05, momentum=0.1, affine=False, track_running_stats=False)
+            (Activation): LeakyReLU(negative_slope=0.2)
+          )
+          (5): ConvBlock(
+            (Conv): Conv3d(34, 16, kernel_size=(3, 3, 3), stride=(1, 1, 1), padding=(1, 1, 1))
+            (Norm): InstanceNorm3d(16, eps=1e-05, momentum=0.1, affine=False, track_running_stats=False)
+            (Activation): LeakyReLU(negative_slope=0.2)
+          )
+        )
+        (upsample): Upsample(scale_factor=2.0, mode=nearest)
+      )
+      (flow): Conv3d(16, 3, kernel_size=(3, 3, 3), stride=(1, 1, 1), padding=(1, 1, 1))
+      (spatial_transform): SpatialTransformer()
+    )
+  )
+)
+INFO:root: Epoch = [   0/10], Train Loss = 0.88784,   Val Loss =  3.1678, Train duration =  161.0207s, Val duration = 10.3778s
+INFO:root: Epoch = [   1/10], Train Loss = 1.7675,   Val Loss =  3.5352, Train duration =  160.4971s, Val duration = 10.6400s
+INFO:root: Epoch = [   2/10], Train Loss = 1.4756,   Val Loss =  4.153, Train duration =  161.0222s, Val duration = 10.5536s
+INFO:root: Epoch = [   3/10], Train Loss = 1.8555,   Val Loss =  5.3774, Train duration =  162.7594s, Val duration = 10.5918s
+INFO:root: Epoch = [   4/10], Train Loss = 2.203,   Val Loss =  4.8204, Train duration =  161.5799s, Val duration = 11.0859s
+INFO:root: Epoch = [   5/10], Train Loss = 2.3191,   Val Loss =  4.6323, Train duration =  162.0733s, Val duration = 10.6108s
+INFO:root: Epoch = [   6/10], Train Loss = 2.0798,   Val Loss =  4.526, Train duration =  160.6658s, Val duration = 10.6359s
+INFO:root: Epoch = [   7/10], Train Loss = 2.1458,   Val Loss =  6.4492, Train duration =  162.0418s, Val duration = 10.6506s
+INFO:root: Epoch = [   8/10], Train Loss = 2.064,   Val Loss =  5.423, Train duration =  162.4954s, Val duration = 10.7420s
+INFO:root: Epoch = [   9/10], Train Loss = 1.9556,   Val Loss =  4.6727, Train duration =  162.5225s, Val duration = 10.7851s
