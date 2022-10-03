@@ -89,62 +89,6 @@ A UNet based CT scan (Multiphase CT scan and lung CT) registration using Pytorch
 |   |   |   ├── ndutils.py
 |   |   |   ├── train_val.py
 ```  
-
-### Data Preprocessing
-Use `data_pre.ipynb` to create and prepare data. Example usage:
-```
-run data_pre.ipynb
-```
-
-<p align='center'>
-  <img src="https://user-images.githubusercontent.com/37034031/56449965-b583d380-635b-11e9-97c1-fc3e691cae2e.png" width=800)
-</p> 
-  
-<p align='center'>
-  <img src="https://user-images.githubusercontent.com/37034031/56449970-c16f9580-635b-11e9-9737-0ab8326e4b40.png" width=800)
-</p> 
-  
-<p align='center'>
-  <img src="https://user-images.githubusercontent.com/37034031/56449971-c896a380-635b-11e9-8657-195451fb7336.png" width=800)
-</p> 
-  
-- Binary head mask using [Otsu auto-thresholding](https://pdfs.semanticscholar.org/fa29/610048ae3f0ec13810979d0f27ad6971bdbf.pdf) 
-
-### Training Network
-Use `runme.sh` to train the model. Example usage:
-```
-bash runme.sh 
-```
-
-- CUDA_VISIBLE_DEVICES=0,1,2,3 python train_val.py' 
-- `--train_A_data_path `: path to MRI train set
-- `--train_B_data_path`: path to CT train set 
-- `val_A_data_path`: path to MRI val set
-- `val_B_data_path`: path to CT val set
-- `val_data_save_path`: result
-- `exp-dir`: path to save checkpoints
-- `exp_name`:  experiment name
-- `data-parallel`: use for multiple gpu training (use only when multiple GPUs are available) 
-- `norm_method`: normalization method (default min-max)
-- `lr`: learning rate
-- `num_epochs_net`: number of epochs 
-- `batch-size`: define batch size
-- `switch_residualpath`: whether to use residual path or not (1 to use and 0 to not use)
-- `debug`: set the verbosity of the debug (1 to turn on debugging and 0 to turn it off)  
-
-
-### Tensorboard Visualization
-Evaluation of validation data during training process.
-
-<p align='center'>
-  <img src="https://user-images.githubusercontent.com/37034031/56470728-8cab2d80-6484-11e9-8e61-b46c11a6942d.png" width=1000)
-</p>  
-
-Total loss, data loss and regularization term in each iteration.  
-
-<p align='center'>
-  <img src="https://user-images.githubusercontent.com/37034031/56470734-96cd2c00-6484-11e9-92c4-e7166a83838a.png" width=1000)
-</p>  
   
 
 ### Citation
